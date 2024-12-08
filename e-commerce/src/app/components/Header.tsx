@@ -10,7 +10,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@/components/ui/sheet"
+
 
 const Header = () => {
   return (
@@ -37,13 +38,13 @@ const Header = () => {
               <MdOutlineShoppingCart/><span className="text-sm w-5 h-5 bg-red-500 mb-5 text-center rounded-full text-white font-semibold">2</span>
             </Link>
             {/* Shadcn SHeet DIv */}
-            <div className="md:hidden">
+            <div className="md:hidden z-10">
               <Sheet>
                 <SheetTrigger>
                   <RxHamburgerMenu />
                 </SheetTrigger>
                 <SheetContent>
-                  <SheetHeader>
+                <SheetHeader>
                     <SheetTitle className="text-4xl font-bold clashDisplay mb-4 text-center">
                   <Link href="/">Avion</Link>
                     </SheetTitle>
@@ -92,10 +93,10 @@ const Header = () => {
                           Cutlery
                         </Link>
                       </nav>
-                    </SheetDescription>
-                  </SheetHeader>
-                </SheetContent>
-              </Sheet>
+                      </SheetDescription>
+    </SheetHeader>
+  </SheetContent>
+</Sheet>
             </div>
           </div>
         </div>
