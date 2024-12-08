@@ -30,25 +30,42 @@ body{
 
 
 
-@keyframes scaleUp {
+@keyframes bounceScale {
   0% {
-    transform: scale(1.5);
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
     opacity: 1;
   }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.9;
+  80% {
+    transform: scale(0.95);
   }
   100% {
     transform: scale(1);
-    opacity: 1;
   }
 }
 
 .animate-cart-item {
-  animation: scaleUp 0.3s ease-in-out;
+  animation: bounceScale 0.5s cubic-bezier(0.25, 1.25, 0.5, 1);
+  cursor: pointer;
 }
 
+@keyframes subtleScale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
+.subtle-animate {
+  animation: subtleScale 0.3s ease-in-out;
+}
 
 
