@@ -6,7 +6,7 @@ import PopularProduct from './components/PopularProduct'
 import SignUp from './components/SignUp'
 import WidthWrapper from './components/WidthWrapper'
 import Studio from './components/Studio'
-import Cartcard from './components/CardComponent'
+
 
 
 const page = () => {

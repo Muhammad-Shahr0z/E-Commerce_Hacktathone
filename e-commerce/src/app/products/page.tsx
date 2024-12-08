@@ -1,8 +1,10 @@
-// pages/products.js
 
-import Card from "../components/Card";
-import FilterBar from "../components/FilterBar";
-import WidthWrapper from "../components/WidthWrapper";
+
+import Card from "@/app/components/Card";
+import FilterBar from "@/app/components/FilterBar";
+import WidthWrapper from "@/app/components/WidthWrapper";
+
+
 
 const products = [
   {
