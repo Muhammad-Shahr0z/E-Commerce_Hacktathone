@@ -4,7 +4,7 @@ import Image from "next/image";
 const Card = ({product}:any) => {
   return (
     <>
-      <div className="xl:w-[305px] w-full lg:w-[320px]  md:w-[220px]  h-fit xl:h-[462px] bg-white gap-[24px] flex flex-col">
+      <div className="xl:w-[305px] w-full lg:w-[320px]  md:w-[220px]  h-fit xl:h-[462px] bg-white gap-[24px] flex flex-col hover:animate-pulse">
         <Image
         height={375}
         width={305}
