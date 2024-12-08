@@ -29,7 +29,7 @@ const PopularProduct = () => {
         {/* card 01 */}
         <div className="lg:w-[630px] w-full  h-fit xl:h-[462px] bg-white gap-[24px] flex-col hidden xl:flex">
           <Image
-            src="/popular/large.png"
+            src="/popular/Large.png"
             height={630}
             width={375}
             alt="CHAIR"
