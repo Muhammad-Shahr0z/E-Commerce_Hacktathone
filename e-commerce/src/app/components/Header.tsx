@@ -29,10 +29,10 @@ const Header = () => {
               href="/carts"
             >
               <MdOutlineShoppingCart />
-              <span className="flex justify-center items-center text-[10px] text-sm w-[14px]  h-[14px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
-              <span>
+              <span className="flex pb-[1px] justify-center items-center text-[9px] text-sm w-[14px]  h-[14px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
+       
                 2
-                </span>
+              
               </span>
             </Link>
 
@@ -46,10 +46,10 @@ const Header = () => {
               href="/carts"
             >
               <MdOutlineShoppingCart />
-              <span className="flex justify-center items-center text-[10px] text-sm w-[14px]  h-[14px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
-              <span>
+              <span className="flex pb-[1px] justify-center items-center text-[9px] text-sm w-[14px]  h-[14px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
+       
                 2
-                </span>
+              
               </span>
        
             </Link>
@@ -67,10 +67,22 @@ const Header = () => {
                     <SheetDescription>
                       <nav className="flex flex-col text-sm gap-y-3 border-[0.5px] items-center p-4 rounded-md">
                         <Link
+                          href="/"
+                          className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
+                        >
+                      Home
+                        </Link>
+                        <Link
                           href="/products"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
                           All Products
+                        </Link>
+                        <Link
+                          href="/about-us"
+                          className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
+                        >
+                          About Us
                         </Link>
                         <Link
                           href="/#ceramic"
@@ -90,12 +102,7 @@ const Header = () => {
                         >
                           Chairs
                         </Link>
-                        <Link
-                          href="/Chairs"
-                          className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
-                        >
-                          Crockery
-                        </Link>
+                
                         <Link
                           href="/Crockery"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
@@ -131,6 +138,12 @@ const Header = () => {
             All Products
           </Link>
           <Link
+            href="/about-us"
+            className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
+          >
+          About Us
+          </Link>
+          <Link
             href="/#ceramic"
             className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
           >
@@ -148,12 +161,7 @@ const Header = () => {
           >
             Chairs
           </Link>
-          <Link
-            href="/crockery"
-            className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
-          >
-            Crockery
-          </Link>
+
           <Link
             href="/tableware"
             className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
