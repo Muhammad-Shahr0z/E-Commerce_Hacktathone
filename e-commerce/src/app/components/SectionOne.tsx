@@ -13,7 +13,7 @@ const Features = () => {
 
       <div className="w-full mx-auto h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-10 items-center">
         {/* div 01 */}
-        <div className="flex items-start flex-col xl:w-[260px] h-[160px]  gap-[16px] clashDisplay font-[400] w-full">
+        <div className="flex items-start flex-col xl:w-[260px] h-[160px]  gap-[16px] clashDisplay font-[400] w-full  transition-transform duration-300 ease-in-out hover:scale-95">
           <div>
             <FaShippingFast className="text-3xl text-black" />
           </div>
@@ -26,7 +26,7 @@ const Features = () => {
         </div>
 
         {/* div 02 */}
-        <div className="flex items-start flex-col xl:w-[270px]  h-[160px] gap-[16px] clashDisplay font-[400]  w-full">
+        <div className="flex items-start flex-col xl:w-[270px]  h-[160px] gap-[16px] clashDisplay font-[400]  w-full  transition-transform duration-300 ease-in-out hover:scale-95">
           <div>
             <RiCheckboxCircleLine className="text-3xl text-black" />
           </div>
@@ -39,7 +39,7 @@ const Features = () => {
         </div>
 
         {/* div 03 */}
-        <div className="flex items-start flex-col xl:w-[270px]  h-[160px]  gap-[16px] clashDisplay font-[400]  w-full">
+        <div className="flex items-start flex-col xl:w-[270px]  h-[160px]  gap-[16px] clashDisplay font-[400]  w-full transition-transform duration-300 ease-in-out hover:scale-95 ">
           <div>
             <LuFileText className="text-3xl text-black" />
           </div>
@@ -52,7 +52,7 @@ const Features = () => {
         </div>
 
         {/* div 04 */}
-        <div className="flex items-start flex-col xl:w-[270px] h-[160px] gap-[16px] clashDisplay font-[400]  w-full">
+        <div className="flex items-start flex-col xl:w-[270px] h-[160px] gap-[16px] clashDisplay font-[400] w-full   transition-transform duration-300 ease-in-out hover:scale-95">
           <div>
             <PiPlant className="text-3xl text-black" />
           </div>

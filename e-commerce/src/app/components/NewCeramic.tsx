@@ -15,7 +15,7 @@ const NewCeramic = () => {
             height={375}
             width={305}
             alt="CHAIR"
-            className="md:w-full h-auto"
+            className="md:w-full h-auto transition-transform duration-300 ease-in-out hover:scale-95"
           ></Image>
           <div>
             <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
@@ -31,7 +31,7 @@ const NewCeramic = () => {
             height={375}
             width={305}
             alt="CHAIR"
-            className="md:w-auto h-auto"
+            className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
           ></Image>
           <div>
             <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
@@ -47,7 +47,7 @@ const NewCeramic = () => {
             height={375}
             width={305}
             alt="CHAIR"
-            className="md:w-auto h-auto"
+            className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
           ></Image>
           <div>
             <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
@@ -63,7 +63,7 @@ const NewCeramic = () => {
             height={375}
             width={305}
             alt="CHAIR"
-            className="md:w-auto h-auto"
+            className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
           ></Image>
           <div>
             <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
@@ -81,7 +81,7 @@ const NewCeramic = () => {
             height={375}
             width={305}
             alt="CHAIR"
-            className="md:w-auto h-auto"
+            className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
           ></Image>
           <div>
             <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
@@ -99,7 +99,7 @@ const NewCeramic = () => {
             height={375}
             width={305}
             alt="CHAIR"
-            className="md:w-auto h-auto"
+            className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
           ></Image>
           <div>
             <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">

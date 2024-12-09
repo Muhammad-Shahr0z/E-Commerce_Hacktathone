@@ -14,7 +14,7 @@ const SignUp = () => {
         </div>
 
         {/* div 02 */}
-        <div className="w-full max-w-[472px] flex flex-nowrap justify-center items-center mt-8 gap-2">
+        <div className="w-full max-w-[472px] flex flex-nowrap justify-center items-center mt-8 md:mb-0 mb-6">
           <input
             type="text"
             className="w-[70%] md:w-[354px] h-[48px] md:h-[56px] outline-none bg-[#F9F9F9] pl-4 md:pl-8 text-[14px]"

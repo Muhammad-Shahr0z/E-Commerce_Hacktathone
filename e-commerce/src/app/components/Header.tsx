@@ -10,8 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-
+} from "@/components/ui/sheet";
 
 const Header = () => {
   return (
@@ -24,29 +23,46 @@ const Header = () => {
             <Link href="/">Avion</Link>
           </h1>
 
-          <div className="flex text-xl gap-5 items-center">
-          <Link className="justify-center items-center hidden md:flex cursor-pointer" href="/carts">
-              <MdOutlineShoppingCart/><span className="text-sm w-5 h-5 bg-red-500 mb-5 text-center rounded-full text-white font-semibold">2</span>
+          <div className="flex text-xl gap-[10px] items-center">
+            <Link
+              className="justify-center items-center hidden md:flex cursor-pointer"
+              href="/carts"
+            >
+              <MdOutlineShoppingCart />
+              <span className="flex justify-center items-center text-[10px] text-sm w-[14px]  h-[14px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
+              <span>
+                2
+                </span>
+              </span>
             </Link>
 
             <Link href="/login">
               <CgProfile className="hidden md:block cursor-pointer " />
             </Link>
             <IoSearch className=" md:hidden cursor-pointer" />
-        
-            <Link className="flex justify-center items-center md:hidden cursor-pointer" href="/carts">
-              <MdOutlineShoppingCart/><span className="text-sm w-5 h-5 bg-red-500 mb-5 text-center rounded-full text-white font-semibold">2</span>
+
+            <Link
+              className="flex justify-center items-center md:hidden cursor-pointer"
+              href="/carts"
+            >
+              <MdOutlineShoppingCart />
+              <span className="flex justify-center items-center text-[10px] text-sm w-[14px]  h-[14px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
+              <span>
+                2
+                </span>
+              </span>
+       
             </Link>
             {/* Shadcn SHeet DIv */}
-            <div className="md:hidden z-10">
+            <div className="md:hidden z-10 h-6 w-6">
               <Sheet>
                 <SheetTrigger>
-                  <RxHamburgerMenu />
+                  <RxHamburgerMenu  className="h-full w-full"/>
                 </SheetTrigger>
                 <SheetContent>
-                <SheetHeader>
+                  <SheetHeader>
                     <SheetTitle className="text-4xl font-bold clashDisplay mb-4 text-center">
-                  <Link href="/">Avion</Link>
+                      <Link href="/">Avion</Link>
                     </SheetTitle>
                     <SheetDescription>
                       <nav className="flex flex-col text-sm gap-y-3 border-[0.5px] items-center p-4 rounded-md">
@@ -93,10 +109,10 @@ const Header = () => {
                           Cutlery
                         </Link>
                       </nav>
-                      </SheetDescription>
-    </SheetHeader>
-  </SheetContent>
-</Sheet>
+                    </SheetDescription>
+                  </SheetHeader>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
@@ -106,13 +122,13 @@ const Header = () => {
             href="/"
             className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
           >
-        Home
+            Home
           </Link>
           <Link
             href="/products"
             className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
           >
-        All Products
+            All Products
           </Link>
           <Link
             href="/#ceramic"
