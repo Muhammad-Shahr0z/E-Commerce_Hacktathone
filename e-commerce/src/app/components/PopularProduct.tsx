@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const PopularProduct = () => {
   return (
@@ -7,7 +8,10 @@ const PopularProduct = () => {
         Our popular products
       </h1>
       {/* // Images Div */}
+     
+      <Link href="/itemDetails">
       <div className="flex gap-5 xl:gap-5">
+ 
             {/* card 0 */}
             <div className="xl:w-[305px] w-full lg:w-[320px]  md:w-[220px]  h-fit xl:h-[462px] bg-white gap-[24px] xl:hidden flex-col hidden md:flex">
           <Image
@@ -79,6 +83,8 @@ const PopularProduct = () => {
       <button className="md:w-[170px] w-full h-[56px] bg-[#F9F9F9] text-[#2A254B] font-[400] text-[1rem] leading-6 satoshi tracking-wider hover:bg-[#4a393978] my-4">
         View collection
       </button>
+
+               </Link>
     </main>
   );
 };

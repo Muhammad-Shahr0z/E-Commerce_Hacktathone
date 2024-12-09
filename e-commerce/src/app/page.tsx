@@ -6,6 +6,7 @@ import PopularProduct from './components/PopularProduct'
 import SignUp from './components/SignUp'
 import WidthWrapper from './components/WidthWrapper'
 import Studio from './components/Studio'
+import Link from 'next/link'
 
 
 
@@ -14,17 +15,21 @@ const page = () => {
 
 
 <main>
+
+
+
+
 <WidthWrapper>
 <Hero/>
 <SectionOne/>
-<NewCeramic/>
+<NewCeramic Heading='New ceramics'/>
 <PopularProduct/>
 </WidthWrapper>
 <SignUp/>
-
 <WidthWrapper>
 <Studio/>
 </WidthWrapper>
+
 
 
 

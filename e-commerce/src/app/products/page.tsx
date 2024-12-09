@@ -1,12 +1,20 @@
 
-
 import Card from "@/app/components/Card";
 import FilterBar from "@/app/components/FilterBar";
 import WidthWrapper from "@/app/components/WidthWrapper";
+import Link from "next/link";
 
 
 
-const products = [
+
+const products= [
+
+ 
+
+
+
+
+
   {
     id: 1,
     name: "The Candy Chair",
@@ -87,6 +95,8 @@ const Products = () => {
 
 <FilterBar/>
 
+{/* Temporary Use Link Tag For Go To Card Detail Page */}
+<Link href="/itemDetails">
     <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center">
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {products.map((product) => (
@@ -97,6 +107,7 @@ const Products = () => {
         View collection
       </button>
     </div>
+    </Link>
      </WidthWrapper>
   );
 };
