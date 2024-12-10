@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -11,9 +12,11 @@ const Hero = () => {
           <p className="text-[2rem] lg:text-[2rem] font-[400] leading-[44.8px] clashDisplay text-[#FFFFFF] tracking-wider mt-10 lg:mt-0 md:text-[3rem]">
             The furniture brand for the future, with timeless designs
           </p>
+          <Link href="/products">
           <button className="hidden md:block w-[170px] h-[56px] bg-[#F9F9F926] text-[#FFFFFF] font-[400] text-[1rem] leading-6 satoshi tracking-wider hover:bg-[#4a393978] ">
             View collection
           </button>
+          </Link>
         </div>
 
         {/* div 02 */}
@@ -24,9 +27,11 @@ const Hero = () => {
             retail brand with nice fonts, tasteful colors and a beautiful way to
             display things digitally using modern web technologies.
           </p>
+          <Link href="/products">
           <button className="mt-10 mb-8 md:hidden md:w-[170px] w-full h-[56px] bg-[#F9F9F926] text-[#FFFFFF] font-[400] text-[1rem] leading-6 satoshi tracking-wider hover:bg-[#4a393978] md:text-[3rem] lg:text-[1rem]">
             View collection
           </button>
+          </Link>
         </div>
       </div>
 
