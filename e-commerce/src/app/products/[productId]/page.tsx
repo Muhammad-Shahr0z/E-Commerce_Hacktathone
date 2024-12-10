@@ -1,11 +1,10 @@
-"use client"
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Features from "../../components/SectionOne";
 import NewCeramic from "../../components/NewCeramic";
 import { useAtom } from "jotai";
 import { productsData } from "@/app/store";
-
 
 interface Product {
   image: string;
@@ -17,29 +16,37 @@ interface Params {
   productId: string;
 }
 
-
 const ProductListing = ({ params }: { params: Params }) => {
-  
   const ParamsId: number = Number(params.productId);
 
-  const [products, setProducts] = useAtom<Product[]>(productsData)
+  const [products, setProducts] = useAtom<Product[]>(productsData);
 
-const ArrayProduct:Product[]=  products.filter((product) => product.id === ParamsId)
-const SingleProduct = ArrayProduct[0]
+  const ArrayProduct: Product[] = products.filter(
+    (product) => product.id === ParamsId
+  );
+  const SingleProduct = ArrayProduct[0];
 
+  const [count, setcount] = useState(1);
+  const [price, setPrice] = useState(SingleProduct.price);
 
-
-
-
-
-
-
+  const handleCountIncrement = () => {
+    if (count === 10) {
+      alert("You can't add more than 10 items");
+      return;
+    }
+    setcount(count + 1);
+    setPrice(price + SingleProduct.price);
+  };
+  const handleCountDecrement = () => {
+    if (count === 0) {
+      return;
+    }
+    setcount(count - 1);
+    setPrice(price - SingleProduct.price);
+  };
 
   return (
-
-  
-
-    <section className="max-w-[1280px] mx-auto">
+    <section className="max-w-[1280px] mx-auto caret-transparent">
       <div className="px-4 md:px-8 lg:px-12 py-8">
         {/* Main Product Section */}
         <div className="flex flex-col md:flex-row md:items-center md:gap-8 lg:h-[600px] ">
@@ -59,9 +66,9 @@ const SingleProduct = ArrayProduct[0]
             <div className="w-full">
               <div>
                 <p className="text-xl md:text-2xl font-semibold">
-                 {SingleProduct.name}
+                  {SingleProduct.name}
                 </p>
-                <p className="py-2 text-lg md:text-xl">${SingleProduct.price}</p>
+                <p className="py-2 text-lg md:text-xl">${price}</p>
               </div>
               <div className="text-[#505977] text-sm md:text-base">
                 <h1 className="font-semibold">Description</h1>
@@ -100,9 +107,11 @@ const SingleProduct = ArrayProduct[0]
                 <div className="flex flex-wrap justify-between items-center gap-4">
                   <div className="flex items-center gap-4">
                     <h1>Amount:</h1>
-                    <button className="flex gap-4 bg-[#F5F5F5] rounded-md px-4 py-2">
-                      <span>+</span> 1 <span>-</span>
-                    </button>
+                    <div className="flex gap-4 bg-[#F5F5F5] rounded-md px-4 py-2">
+                      <button className="text-green-800 text-sm font-bold" onClick={handleCountDecrement}>-</button>
+                      {count}
+                      <button className="text-red-800 text-sm font-bold" onClick={handleCountIncrement}>+</button>
+                    </div>
                   </div>
                   <button className="w-full md:w-[146px] h-[56px] bg-[#2A254B] text-white">
                     Add to cart
