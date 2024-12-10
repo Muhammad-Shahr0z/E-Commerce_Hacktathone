@@ -1,23 +1,23 @@
+"use client"
 import Image from "next/image";
 import Card from "./Card";
 import ViewCollectionButton from "./ViewCollectionButton";
+import { productsData } from "../store";
+import { useAtom } from "jotai";
+import Link from "next/link";
 
-const products = [
-  {
-    id: 33,
-    name: "Rustic Vase Set",
-    price: 155,
-    image: "/newcomics/1.png",
-  },
-  {
-    id: 44,
-    name: "The Silky Vase",
-    price: 125,
-    image: "/newcomics/3.png",
-  },
-];
+interface Product {
+  image: string;
+  name: string;
+  price: number;
+  id: number;
+}
 
 const PopularProduct = () => {
+
+  const [products, setProducts] = useAtom<Product[]>(productsData)
+
+
   return (
     <main className="flex flex-col items-center justify-center gap-y-2 mt-10 px-5 md:px-10 xl:px-0">
       <h1 className="clashDisplay md:text-[2rem] text-[20px] font-[400px] md:self-center self-start mb-3 xl:self-start">
@@ -27,10 +27,11 @@ const PopularProduct = () => {
 
 
         <div className="flex gap-5 xl:gap-5">
-          {/* card 0 */}
+          {/* Static Card Visible Only Medium Screen */}
+          <Link href="/products/3">
           <div className="xl:w-[305px] w-full lg:w-[320px]  md:w-[220px]  h-fit xl:h-[462px] bg-white gap-[24px] xl:hidden flex-col hidden md:flex">
             <Image
-              src="/newcomics/6.png"
+              src="/newcomics/1.png"
               height={375}
               width={305}
               alt="CHAIR"
@@ -45,8 +46,9 @@ const PopularProduct = () => {
               </p>
             </div>
           </div>
+          </Link>
 
-          {/* card 01 */}
+          {/* Sofa BIg Image */}
           <div className="lg:w-[630px] w-full  h-fit xl:h-[462px] bg-white gap-[24px] flex-col hidden xl:flex">
             <Image
               src="/popular/Large.png"
@@ -66,16 +68,12 @@ const PopularProduct = () => {
           </div>
 
   
-{products.map((product) => (
+{products.slice(0,2).map((product) => (
 
 
       <Card  product={product} key={product.id} />
 
 ))} 
-
-
-
-
 
         </div>
   <ViewCollectionButton/>

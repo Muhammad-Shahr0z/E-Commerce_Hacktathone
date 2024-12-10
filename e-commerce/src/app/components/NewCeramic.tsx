@@ -1,39 +1,30 @@
+"use client"
 import Image from "next/image";
 import Card from "./Card";
 
 
-const ceramicProducts = [
-  {
-    id: 22,
-    name: "The Dandy Chair",
-    price: 250,
-    image: "/newcomics/1.png",
-  },
-  {
-    id: 44,
-    name: "Rustic Vase Set",
-    price: 155,
-    image: "/newcomics/3.png",
-  },
-  {
-    id: 55,
-    name: "The Silky Vase",
-    price: 125,
-    image: "/newcomics/2.png",
-  },
-  {
-    id: 66,
-    name: "The Lucy Lamp",
-    price: 399,
-    image: "/newcomics/4.png",
-  },
-];
+import { useAtom } from "jotai";
+import { productsData } from "@/app/store";
+
+
+interface Product {
+  image: string;
+  name: string;
+  price: number;
+  id: number;
+}
+
+
 
 interface Props {
   Heading: string;
 }
 
 const NewCeramic = (props: Props) => {
+
+  const [products, setProducts] = useAtom<Product[]>(productsData)
+
+
   return (
     <main
       className="flex flex-col items-center justify-center gap-y-2 px-5 md:px-0 h-fit xl:px-0"
@@ -44,7 +35,7 @@ const NewCeramic = (props: Props) => {
       </h1>
       {/* // Images Div */}
       <div className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-3 xl:gap-x-5  gap-5">
-        {ceramicProducts.map((product) => (
+        {products.slice(0, 4).map((product) => (
           <Card product={product} key={product.id} />
         ))}
 
