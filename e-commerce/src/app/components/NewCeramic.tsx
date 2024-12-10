@@ -1,30 +1,30 @@
 import Image from "next/image";
 import Card from "./Card";
-import Link from "next/link";
+
 
 const ceramicProducts = [
   {
-    id: 1,
+    id: 22,
     name: "The Dandy Chair",
-    price: "£250",
+    price: 250,
     image: "/newcomics/1.png",
   },
   {
-    id: 2,
+    id: 44,
     name: "Rustic Vase Set",
-    price: "£155",
+    price: 155,
     image: "/newcomics/3.png",
   },
   {
-    id: 3,
+    id: 55,
     name: "The Silky Vase",
-    price: "£125",
+    price: 125,
     image: "/newcomics/2.png",
   },
   {
-    id: 4,
+    id: 66,
     name: "The Lucy Lamp",
-    price: "£399",
+    price: 399,
     image: "/newcomics/4.png",
   },
 ];
@@ -45,14 +45,7 @@ const NewCeramic = (props: Props) => {
       {/* // Images Div */}
       <div className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-3 xl:gap-x-5  gap-5">
         {ceramicProducts.map((product) => (
-          // yahan enconde kia gaya hai k link me kisi tarhan k special character or spaces ko desh se replace krde
-          <Link
-            href={`/products/${product.name.replace(/\s+/g, "-") + "-"}${
-              product.id
-            }`}
-          >
-            <Card key={product.id} product={product} />
-          </Link>
+          <Card product={product} key={product.id} />
         ))}
 
         {/* visible only medium screen  */}
@@ -97,9 +90,6 @@ const NewCeramic = (props: Props) => {
           </div>
         </div>
       </div>
-      <button className="md:w-[170px] w-full h-[56px] bg-[#F9F9F9] text-[#2A254B] font-[400] text-[1rem] leading-6 satoshi tracking-wider hover:bg-[#4a393978] mt-4">
-        View collection
-      </button>
     </main>
   );
 };

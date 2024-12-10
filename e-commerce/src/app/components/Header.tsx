@@ -30,9 +30,7 @@ const Header = () => {
             >
               <MdOutlineShoppingCart />
               <span className="flex pb-[1px] justify-center items-center text-[9px] text-sm w-[14px]  h-[14px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
-       
                 2
-              
               </span>
             </Link>
 
@@ -47,17 +45,14 @@ const Header = () => {
             >
               <MdOutlineShoppingCart />
               <span className="flex pb-[1px] justify-center items-center text-[9px] text-sm w-[14px]  h-[14px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
-       
                 2
-              
               </span>
-       
             </Link>
             {/* Shadcn SHeet DIv */}
             <div className="md:hidden z-10 h-6 w-6">
               <Sheet>
                 <SheetTrigger>
-                  <RxHamburgerMenu  className="h-full w-full"/>
+                  <RxHamburgerMenu className="h-full w-full" />
                 </SheetTrigger>
                 <SheetContent>
                   <SheetHeader>
@@ -70,7 +65,7 @@ const Header = () => {
                           href="/"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
-                      Home
+                          Home
                         </Link>
                         <Link
                           href="/products"
@@ -102,7 +97,7 @@ const Header = () => {
                         >
                           Chairs
                         </Link>
-                
+
                         <Link
                           href="/Crockery"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
@@ -141,7 +136,7 @@ const Header = () => {
             href="/about-us"
             className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
           >
-          About Us
+            About Us
           </Link>
           <Link
             href="/#ceramic"

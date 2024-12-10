@@ -7,7 +7,7 @@ const Hero = () => {
 
       <div className="md:h-[584px] lg:w-[calc(100%-520px)] bg-[#2A254B] md:flex md:flex-col md:justify-around items-start lg:pt-10 px-5 md:p-10 xl:p-0">
         {/* div 01 */}
-        <div className="xl:w-[513px] lg:h-[187px] md:h-fit flex flex-col md:gap-[41px] xl:ml-[60px] mb-10">
+        <div className="xl:w-[513px] lg:h-[190px] md:h-fit flex flex-col md:gap-[41px] xl:ml-[60px] mb-10">
           <p className="text-[2rem] lg:text-[2rem] font-[400] leading-[44.8px] clashDisplay text-[#FFFFFF] tracking-wider mt-10 lg:mt-0 md:text-[3rem]">
             The furniture brand for the future, with timeless designs
           </p>

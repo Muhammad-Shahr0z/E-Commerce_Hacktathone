@@ -3,13 +3,7 @@ import React from "react";
 import Features from "../../components/SectionOne";
 import NewCeramic from "../../components/NewCeramic";
 
-
-
 const ProductListing = () => {
-    
-
-const Head:string ="You might also like"
-
   return (
     <section className="max-w-[1280px] mx-auto">
       <div className="px-4 md:px-8 lg:px-12 py-8">
@@ -86,23 +80,9 @@ const Head:string ="You might also like"
         </div>
       </div>
 
+      <NewCeramic key={468} Heading="You might also like" />
 
-
-
-
-
-
-
-      <NewCeramic Heading={Head} />
-
-
-       <Features/>
-
-
-
-
-
-
+      <Features />
     </section>
   );
 };

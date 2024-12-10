@@ -177,12 +177,12 @@ const Footer = () => {
           &copy; Copyright 2022 Avion LTD
         </p>
         <div className="md:flex justify-center space-x-4 text-2xl hidden">
-        <FaLinkedin className="hover:text-blue-700 transition-all duration-300 cursor-pointer" />
-  <FaFacebookSquare className="hover:text-blue-600 transition-all duration-300 cursor-pointer" />
-  <FaInstagram className="hover:text-pink-500 transition-all duration-300 cursor-pointer" />
-  <FaSkype className="hover:text-[#00aff0] transition-all duration-300 cursor-pointer" />
-  <FaTwitter className="hover:text-blue-400 transition-all duration-300 cursor-pointer" />
-  <GrPinterest className="hover:text-red-600 transition-all duration-300 cursor-pointer" />
+          <FaLinkedin className="hover:text-blue-700 transition-all duration-300 cursor-pointer" />
+          <FaFacebookSquare className="hover:text-blue-600 transition-all duration-300 cursor-pointer" />
+          <FaInstagram className="hover:text-pink-500 transition-all duration-300 cursor-pointer" />
+          <FaSkype className="hover:text-[#00aff0] transition-all duration-300 cursor-pointer" />
+          <FaTwitter className="hover:text-blue-400 transition-all duration-300 cursor-pointer" />
+          <GrPinterest className="hover:text-red-600 transition-all duration-300 cursor-pointer" />
         </div>
       </div>
     </footer>
