@@ -7,6 +7,7 @@ import SignUp from './components/SignUp'
 import WidthWrapper from './components/WidthWrapper'
 import Studio from './components/Studio'
 import Link from 'next/link'
+import Card from './components/Card'
 
 
 

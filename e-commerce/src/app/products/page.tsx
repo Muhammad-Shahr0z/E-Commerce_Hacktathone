@@ -1,20 +1,9 @@
-
 import Card from "@/app/components/Card";
 import FilterBar from "@/app/components/FilterBar";
 import WidthWrapper from "@/app/components/WidthWrapper";
 import Link from "next/link";
 
-
-
-
-const products= [
-
- 
-
-
-
-
-
+const products = [
   {
     id: 1,
     name: "The Candy Chair",
@@ -91,24 +80,27 @@ const products= [
 
 const Products = () => {
   return (
- <WidthWrapper>
+    <WidthWrapper>
+      <FilterBar />
 
-<FilterBar/>
-
-{/* Temporary Use Link Tag For Go To Card Detail Page */}
-<Link href="/itemDetails">
-    <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center">
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        {products.map((product) => (
-        <Card key={product.id} product={product} />
-        ))}
+      <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {products.map((product) => (
+            // yahan enconde kia gaya hai k link me kisi tarhan k special characters or spaces ko desh se replace krde
+            <Link
+              href={`/products/${product.name.replace(/\s+/g, "-") + "-"}${
+                product.id
+              }`}
+            >
+              <Card key={product.id} product={product} />
+            </Link>
+          ))}
+        </div>
+        <button className="md:w-[170px] w-full h-[56px] bg-[#F9F9F9] text-[#2A254B] font-[400] text-[1rem] leading-6 satoshi tracking-wider hover:bg-[#4a393978] my-8">
+          View collection
+        </button>
       </div>
-      <button className="md:w-[170px] w-full h-[56px] bg-[#F9F9F9] text-[#2A254B] font-[400] text-[1rem] leading-6 satoshi tracking-wider hover:bg-[#4a393978] my-8">
-        View collection
-      </button>
-    </div>
-    </Link>
-     </WidthWrapper>
+    </WidthWrapper>
   );
 };
 

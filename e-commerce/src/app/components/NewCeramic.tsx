@@ -1,12 +1,39 @@
 import Image from "next/image";
+import Card from "./Card";
 import Link from "next/link";
+
+const ceramicProducts = [
+  {
+    id: 1,
+    name: "The Dandy Chair",
+    price: "£250",
+    image: "/newcomics/1.png",
+  },
+  {
+    id: 2,
+    name: "Rustic Vase Set",
+    price: "£155",
+    image: "/newcomics/3.png",
+  },
+  {
+    id: 3,
+    name: "The Silky Vase",
+    price: "£125",
+    image: "/newcomics/2.png",
+  },
+  {
+    id: 4,
+    name: "The Lucy Lamp",
+    price: "£399",
+    image: "/newcomics/4.png",
+  },
+];
+
 interface Props {
   Heading: string;
 }
 
 const NewCeramic = (props: Props) => {
-  console.log(props.Heading);
-
   return (
     <main
       className="flex flex-col items-center justify-center gap-y-2 px-5 md:px-0 h-fit xl:px-0"
@@ -17,71 +44,23 @@ const NewCeramic = (props: Props) => {
       </h1>
       {/* // Images Div */}
       <div className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-3 xl:gap-x-5  gap-5">
-        {/* card 01 */}
-        <Link href="/itemDetails">
-          <div className="xl:w-[305px]  w-full lg:w-[310px] md:w-[220px] h-fit xl:h-[462px] bg-white gap-[24px] flex flex-col">
-            <Image
-              src="/newcomics/1.png"
-              height={375}
-              width={305}
-              alt="CHAIR"
-              className="md:w-full h-auto transition-transform duration-300 ease-in-out hover:scale-95"
-            ></Image>
-            <div>
-              <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
-                The Dandy chair
-              </p>
-              <p className="satoshi sm:text-[18px] text-[14px] leading-7 text-[#2A254B]">
-                £250
-              </p>
-            </div>
-          </div>
-        </Link>
-        {/* card 02 */}
-        <Link href="/itemDetails">
-          <div className="xl:w-[305px] w-full lg:w-[310px]  md:w-[220px]   h-fit xl:h-[462px]] bg-white gap-[24px] flex flex-col">
-            <Image
-              src="/newcomics/3.png"
-              height={375}
-              width={305}
-              alt="CHAIR"
-              className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
-            ></Image>
-            <div>
-              <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
-                Rustic Vase Set
-              </p>
-              <p className="satoshi sm:text-[18px] text-[14px] leading-7 text-[#2A254B]">
-                £155
-              </p>
-            </div>
-          </div>
-        </Link>
+        {ceramicProducts.map((product) => (
+          // yahan enconde kia gaya hai k link me kisi tarhan k special character or spaces ko desh se replace krde
+          <Link
+            href={`/products/${product.name.replace(/\s+/g, "-") + "-"}${
+              product.id
+            }`}
+          >
+            <Card key={product.id} product={product} />
+          </Link>
+        ))}
 
-        {/* card 03 */}
-        <Link href="/itemDetails">
-          <div className="xl:w-[305px] w-full lg:w-[310px]  md:w-[220px]   h-fit xl:h-[462px]] bg-white gap-[24px] flex flex-col">
-            <Image
-              src="/newcomics/2.png"
-              height={375}
-              width={305}
-              alt="CHAIR"
-              className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
-            ></Image>
-            <div>
-              <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
-                The Silky Vase
-              </p>
-              <p className="satoshi sm:text-[18px] text-[14px] leading-7 text-[#2A254B]">
-                £125
-              </p>
-            </div>
-          </div>
-        </Link>
-        {/* card 04 */}
-        <div className="xl:w-[305px] w-full lg:w-[310px]  md:w-[220px]  h-fit xl:h-[462px] bg-white gap-[24px] flex flex-col">
+        {/* visible only medium screen  */}
+        {/* card 05 */}
+
+        <div className="xl:w-[305px] w-full lg:w-[310px]  md:w-[220px]  h-fit xl:h-[462px] bg-white gap-[24px] xl:hidden flex-col hidden md:flex">
           <Image
-            src="/newcomics/4.png"
+            src="/newcomics/5.png"
             height={375}
             width={305}
             alt="CHAIR"
@@ -98,48 +77,25 @@ const NewCeramic = (props: Props) => {
         </div>
 
         {/* visible only medium screen  */}
-        {/* card 05 */}
-        <Link href="/itemDetails">
-          <div className="xl:w-[305px] w-full lg:w-[310px]  md:w-[220px]  h-fit xl:h-[462px] bg-white gap-[24px] xl:hidden flex-col hidden md:flex">
-            <Image
-              src="/newcomics/5.png"
-              height={375}
-              width={305}
-              alt="CHAIR"
-              className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
-            ></Image>
-            <div>
-              <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
-                The Lucy Lamp
-              </p>
-              <p className="satoshi sm:text-[18px] text-[14px] leading-7 text-[#2A254B]">
-                £399
-              </p>
-            </div>
-          </div>
-        </Link>
-
-        {/* visible only medium screen  */}
         {/* card 06 */}
-        <Link href="/itemDetails">
-          <div className="xl:w-[305px] w-full lg:w-[310px]  md:w-[220px]  bg-white gap-[24px] xl:hidden flex-col hidden md:flex">
-            <Image
-              src="/newcomics/6.png"
-              height={375}
-              width={305}
-              alt="CHAIR"
-              className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
-            ></Image>
-            <div>
-              <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
-                The Lucy Lamp
-              </p>
-              <p className="satoshi sm:text-[18px] text-[14px] leading-7 text-[#2A254B]">
-                £399
-              </p>
-            </div>
+
+        <div className="xl:w-[305px] w-full lg:w-[310px]  md:w-[220px]  bg-white gap-[24px] xl:hidden flex-col hidden md:flex">
+          <Image
+            src="/newcomics/6.png"
+            height={375}
+            width={305}
+            alt="CHAIR"
+            className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
+          ></Image>
+          <div>
+            <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
+              The Lucy Lamp
+            </p>
+            <p className="satoshi sm:text-[18px] text-[14px] leading-7 text-[#2A254B]">
+              £399
+            </p>
           </div>
-        </Link>
+        </div>
       </div>
       <button className="md:w-[170px] w-full h-[56px] bg-[#F9F9F9] text-[#2A254B] font-[400] text-[1rem] leading-6 satoshi tracking-wider hover:bg-[#4a393978] mt-4">
         View collection

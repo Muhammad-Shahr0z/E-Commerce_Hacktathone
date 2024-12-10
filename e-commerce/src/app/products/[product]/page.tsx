@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import Features from "../components/SectionOne";
-import NewCeramic from "../components/NewCeramic";
+import Features from "../../components/SectionOne";
+import NewCeramic from "../../components/NewCeramic";
 
 
 
