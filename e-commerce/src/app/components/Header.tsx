@@ -29,9 +29,11 @@ const Header = () => {
               href="/carts"
             >
               <MdOutlineShoppingCart />
-              <span className="flex pb-[1px] justify-center items-center text-[9px] text-sm w-[14px]  h-[14px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
-                2
-              </span>
+              <span className="flex justify-center items-center w-[20px] h-[20px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
+  <span className="flex justify-center items-center text-[10px]">
+    2
+  </span>
+</span>
             </Link>
 
             <Link href="/login">
@@ -44,9 +46,13 @@ const Header = () => {
               href="/carts"
             >
               <MdOutlineShoppingCart />
-              <span className="flex pb-[1px] justify-center items-center text-[9px] text-sm w-[14px]  h-[14px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
-                2
-              </span>
+              <span className="flex justify-center items-center w-[20px] h-[20px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
+  <span className="flex justify-center items-center text-[10px]">
+    2
+  </span>
+</span>
+
+
             </Link>
             {/* Shadcn SHeet DIv */}
             <div className="md:hidden z-10 h-6 w-6">
