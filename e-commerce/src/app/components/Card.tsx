@@ -10,11 +10,11 @@ interface Product {
 
 
 const Card = ({ product }: { product: Product }) => {
-  console.log(product);
+  
   
   return (
     <Link
-    href={`/products/${product.name.replace(/\s+/g, "-")}-${product.id}`}
+    href={`/products/${product.id}`}
   >
     <div className="xl:w-[305px] w-full lg:w-[320px] subtle-animate md:w-[220px] h-fit xl:h-[462px] bg-white gap-[24px] flex flex-col transition-transform duration-300 ease-in-out hover:scale-95">
 

@@ -1,10 +1,44 @@
+"use client"
 import Image from "next/image";
 import React from "react";
 import Features from "../../components/SectionOne";
 import NewCeramic from "../../components/NewCeramic";
+import { useAtom } from "jotai";
+import { productsData } from "@/app/store";
 
-const ProductListing = () => {
+
+interface Product {
+  image: string;
+  name: string;
+  price: number;
+  id: number;
+}
+interface Params {
+  productId: string;
+}
+
+
+const ProductListing = ({ params }: { params: Params }) => {
+  
+  const ParamsId: number = Number(params.productId);
+
+  const [products, setProducts] = useAtom<Product[]>(productsData)
+
+const ArrayProduct:Product[]=  products.filter((product) => product.id === ParamsId)
+const SingleProduct = ArrayProduct[0]
+
+
+
+
+
+
+
+
+
   return (
+
+  
+
     <section className="max-w-[1280px] mx-auto">
       <div className="px-4 md:px-8 lg:px-12 py-8">
         {/* Main Product Section */}
@@ -12,10 +46,10 @@ const ProductListing = () => {
           {/* Image Div */}
           <div className="w-full md:w-1/2 h-full">
             <Image
-              src={"/images/Image Left.png"}
+              src={SingleProduct.image}
               height={600}
               width={772}
-              alt="chair"
+              alt={SingleProduct.image}
               className="w-full h-full object-cover"
             />
           </div>
@@ -25,9 +59,9 @@ const ProductListing = () => {
             <div className="w-full">
               <div>
                 <p className="text-xl md:text-2xl font-semibold">
-                  The Dandy Chair
+                 {SingleProduct.name}
                 </p>
-                <p className="py-2 text-lg md:text-xl">$250</p>
+                <p className="py-2 text-lg md:text-xl">${SingleProduct.price}</p>
               </div>
               <div className="text-[#505977] text-sm md:text-base">
                 <h1 className="font-semibold">Description</h1>
