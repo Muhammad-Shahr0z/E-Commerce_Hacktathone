@@ -42,7 +42,7 @@ const About = () => {
 
         <div className="w-full md:h-[478px]  md:w-1/2 transition-transform duration-300 ease-in-out hover:scale-95">
           <Image
-            src="/images/About main.png"
+            src="/about/about-2.png"
             alt="About main"
             height={478}
             width={630}
@@ -58,7 +58,7 @@ const About = () => {
         <Image
           height={603}
           width={720}
-          src="/images/About second.png"
+          src="/about/about-1.png"
           alt="Service"
           className="lg:h-[603px] md:h-[490px] w-full md:w-1/2 transition-transform duration-300 ease-in-out hover:scale-95 hover:translate-y-1"
         />
