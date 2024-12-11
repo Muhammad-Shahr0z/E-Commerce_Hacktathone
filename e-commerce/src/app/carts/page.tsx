@@ -1,8 +1,16 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
-import Image from "next/image";
+import { useAtom } from "jotai";
+import CartComponent from "../components/CartComponent";
+import { addToCart } from "../addToCart";
 
 const CartPage = () => {
+  const [addCart, serAddToCart] = useAtom(addToCart);
+  
+  const cartTotal = addCart.reduce((total, item) => total + item.price, 0);
+
+
   return (
     <div className="bg-gray-50 min-h-screen max-w-[800px] mx-auto">
       <div className="container mx-auto px-4 py-4">
@@ -28,46 +36,12 @@ const CartPage = () => {
               </tr>
             </thead>
             <tbody className="text-gray-600">
-              <tr className="border-b">
-                <td className="py-4 px-2 sm:px-4 flex items-center space-x-4">
-                  <Image
-                    src="/cart/2.png"
-                    alt="plant"
-                    className="w-12 h-12 object-cover"
-                    height={54}
-                    width={54}
-                  />
-                  <span className="text-xs sm:text-base">Basic white vase</span>
-                </td>
-                <td className="py-4 px-2 sm:px-4">$650</td>
-                <td className="py-4 px-2 sm:px-4">
-                  <select className="border rounded-md px-2 py-1 text-xs sm:text-sm">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td className="py-4 px-2 sm:px-4 flex items-center space-x-4">
-                  <Image
-                    src="/cart/1.png"
-                    alt="plant"
-                    className="w-12 h-12 object-cover"
-                    height={54}
-                    width={54}
-                  />
-                  <span className="text-xs sm:text-base">Graystone vase</span>
-                </td>
-                <td className="py-4 px-2 sm:px-4">$550</td>
-                <td className="py-4 px-2 sm:px-4">
-                  <select className="border rounded-md px-2 py-1 text-xs sm:text-sm">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                  </select>
-                </td>
-              </tr>
+              {/* yaha cart use krna hai */}
+
+              {addCart.map((item) => (
+                <CartComponent item={item} key={item.id} />
+              ))
+              }
             </tbody>
           </table>
         </div>
@@ -79,7 +53,7 @@ const CartPage = () => {
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span>Subtotal:</span>
-              <span>$1200</span>
+              <span>${cartTotal}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span>Shipping:</span>
@@ -87,7 +61,7 @@ const CartPage = () => {
             </div>
             <div className="flex justify-between text-lg font-medium">
               <span>Total:</span>
-              <span>$1200</span>
+              <span>${cartTotal}</span>
             </div>
           </div>
           <button className="bg-[#F9F9F9] text-[#2A254B] hover:bg-[#2A254B] hover:text-white w-full mt-4 py-2 rounded-md">

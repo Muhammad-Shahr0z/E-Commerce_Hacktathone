@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import { IoSearch } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -12,11 +14,31 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import { useAtom } from "jotai";
+import { addToCart } from "../addToCart";
+import Navbar from "./Navbar";
+
+
+
+interface Product {
+  image: string;
+  name: string;
+  price: number;
+  id: number;
+}
+interface Params {
+  productId: string;
+}
+
 const Header = () => {
+  
+  const [addCart, serAddToCart] = useAtom(addToCart);
+
+
   return (
     <>
-      <header className="max-w-[1440px] mx-auto md:h-[132px] h-[69px] justify-center  flex flex-col items-center FFFFFF md:px-10 px-5 lg:w-full md:mb-12">
-        <div className="md:border-b-[0.5px] border-[#0000004f] h-1/2 w-full mx-auto flex justify-between items-center">
+      <header className="max-w-[1440px] mx-auto md:h-[66px]  md:px-10 px-5 sticky top-0 md:static backdrop-blur-sm">
+        <div className="md:border-b-[1px] border-[#0000004f] w-full mx-auto flex h-[66px] justify-between items-center md:pb-2">
           <IoSearch className="text-xl hidden md:block cursor-pointer" />
 
           <h1 className="text-[#22202E] text-2xl font-semibold clashDisplay">
@@ -31,7 +53,7 @@ const Header = () => {
               <MdOutlineShoppingCart />
               <span className="flex justify-center items-center w-[20px] h-[20px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
   <span className="flex justify-center items-center text-[10px]">
-    2
+   {addCart.length}
   </span>
 </span>
             </Link>
@@ -48,7 +70,7 @@ const Header = () => {
               <MdOutlineShoppingCart />
               <span className="flex justify-center items-center w-[20px] h-[20px] bg-red-500 mb-5 text-center rounded-full text-white font-semibold">
   <span className="flex justify-center items-center text-[10px]">
-    2
+  {addCart.length}
   </span>
 </span>
 
@@ -125,58 +147,9 @@ const Header = () => {
           </div>
         </div>
 
-        <nav className="w-[675px] justify-between items-center h-1/2 text-[#726E8D] text-[16px] satoshi pt-10 hidden md:flex">
-          <Link
-            href="/"
-            className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
-          >
-            Home
-          </Link>
-          <Link
-            href="/products"
-            className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
-          >
-            All Products
-          </Link>
-          <Link
-            href="/about-us"
-            className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
-          >
-            About Us
-          </Link>
-          <Link
-            href="/#ceramic"
-            className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
-          >
-            Ceramics
-          </Link>
-          <Link
-            href="/Tables"
-            className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
-          >
-            Tables
-          </Link>
-          <Link
-            href="/chairs"
-            className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
-          >
-            Chairs
-          </Link>
-
-          <Link
-            href="/tableware"
-            className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
-          >
-            Tableware
-          </Link>
-          <Link
-            href="/cutlery"
-            className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
-          >
-            Cutlery
-          </Link>
-        </nav>
       </header>
+
+    <  Navbar/>
     </>
   );
 };

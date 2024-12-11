@@ -1,10 +1,14 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Features from "../../components/SectionOne";
 import NewCeramic from "../../components/NewCeramic";
 import { useAtom } from "jotai";
 import { productsData } from "@/app/store";
+import { addToCart } from "@/app/addToCart";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 interface Product {
   image: string;
@@ -15,6 +19,9 @@ interface Product {
 interface Params {
   productId: string;
 }
+
+
+
 
 const ProductListing = ({ params }: { params: Params }) => {
   const ParamsId: number = Number(params.productId);
@@ -44,9 +51,50 @@ const ProductListing = ({ params }: { params: Params }) => {
     setcount(count - 1);
     setPrice(price - SingleProduct.price);
   };
+  
+
+  
+  // Add TO Cart Functionality 
+  const [addCart, serAddToCart] = useAtom(addToCart);
+
+  const handleAddToCart = () => {
+if (addCart.some((product: Product) => product.id === SingleProduct.id)) {
+  toast.warn("This item is already in your cart!", {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+}else {
+  serAddToCart([...addCart, SingleProduct]);
+  toast.success("Item added to cart successfully!", {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+}
+
+
+};
+
 
   return (
+
+    <>
+
+
     <section className="max-w-[1280px] mx-auto caret-transparent">
+
+
+
+
       <div className="px-4 md:px-8 lg:px-12 py-8">
         {/* Main Product Section */}
         <div className="flex flex-col md:flex-row md:items-center md:gap-8 lg:h-[600px] ">
@@ -113,7 +161,7 @@ const ProductListing = ({ params }: { params: Params }) => {
                       <button className="text-red-800 text-sm font-bold" onClick={handleCountIncrement}>+</button>
                     </div>
                   </div>
-                  <button className="w-full md:w-[146px] h-[56px] bg-[#2A254B] text-white">
+                  <button onClick={handleAddToCart} className="w-full md:w-[146px] h-[56px] bg-[#2A254B] text-white">
                     Add to cart
                   </button>
                 </div>
@@ -126,7 +174,12 @@ const ProductListing = ({ params }: { params: Params }) => {
       <NewCeramic key={468} Heading="You might also like" />
 
       <Features />
+
+      <ToastContainer/>
+
     </section>
+
+    </>
   );
 };
 
