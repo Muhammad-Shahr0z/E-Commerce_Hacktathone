@@ -51,7 +51,7 @@ const PopularProduct = () => {
           {/* Sofa BIg Image */}
           <div className="lg:w-[630px] w-full  h-fit xl:h-[462px] bg-white gap-[24px] flex-col hidden xl:flex">
             <Image
-              src="/popular/Large.png"
+              src="/products/Large.png"
               height={630}
               width={375}
               alt="CHAIR"
