@@ -37,7 +37,15 @@ const updatedObject = { ...SingleProduct, Quantity:count ,Finalprice:price};
 
   const handleCountIncrement = () => {
     if (count === 10) {
-      alert("You can't add more than 10 items");
+      toast.warn("You Can Add Only 10 Items", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       return;
     }
     setcount(count + 1);

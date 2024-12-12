@@ -28,7 +28,7 @@ const CartPage = () => {
   // console.log(totalAmount);
 
 
-  
+const EmptyCart = "Your Cart Is Empty";
 
   return (
     <div className="bg-gray-50 min-h-screen max-w-[800px] mx-auto">
@@ -56,6 +56,13 @@ const CartPage = () => {
             </thead>
             <tbody className="text-gray-600">
               {/* yaha cart use krna hai */}
+              {addCart.length === 0 ? (
+                <tr>
+                  <td colSpan={3} className="text-center py-4">
+                    {EmptyCart}
+                  </td>
+                </tr>
+              ) : null}
 
               {addCart.map((item) => (
                 <CartComponent item={item} key={item.id} cart={item.Quantity} />
@@ -82,12 +89,10 @@ const CartPage = () => {
               <span>${totalAmount}</span>
             </div>
           </div>
+
           <button className="bg-[#F9F9F9] text-[#2A254B] hover:bg-[#2A254B] hover:text-white w-full mt-4 py-2 rounded-md">
             Go to checkout
           </button>
-          {/* <button onClick={handleUpdateCartTotal} className="bg-[#F9F9F9] text-[#2A254B] hover:bg-[#2A254B] hover:text-white w-full mt-4 py-2 rounded-md">
-           Update Cart
-          </button> */}
         </div>
       </div>
     </div>

@@ -2,9 +2,10 @@
 
 import { FaPlus , FaMinus } from "react-icons/fa";
 import Image from "next/image"
-import { useState } from "react";
+
 import { useAtom } from "jotai";
 import { addToCart } from "../addToCart";
+import { MdDelete } from "react-icons/md";
 
 
 interface Item {
@@ -48,12 +49,17 @@ const CartComponent = (props:ItemProps) => {
   const handleIncrement = (id: number) => {
     setAddToCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === id && item.Quantity < 11 ? 
+        item.id === id && item.Quantity < 10 ? 
       { ...item, Quantity: item.Quantity + 1 } : item
       )
     );
   };
 
+
+    // Delete function
+    const handleDelete = (id: number) => {
+      setAddToCart((prevCart) => prevCart.filter((item) => item.id !== id));
+    };
 
   return (
 <tr className="border-b">
@@ -67,17 +73,18 @@ const CartComponent = (props:ItemProps) => {
   />
   <span className="text-xs sm:text-base">{props.item.name}</span>
 </td>
-<td className="py-4 px-2 sm:px-4">${props.item.price * props.cart}</td>
+<td className="py-4 w-8 px-2 sm:px-4">${props.item.price * props.cart}</td>
 <td className="py-4 px-2 sm:px-4">
 
 
 
 {/*cards Slotes buttons */}
 
-<div className=" flex justify-between items-center w-[70px]">
+<div className=" flex justify-between items-center w-24">
 <button onClick={() => handleDecrement(props.item.id)}><FaMinus/></button>
 {props.item.Quantity}
-<button onClick={() => handleIncrement(props.item.id)}><FaPlus /></button>
+<button onClick={() => handleIncrement(props.item.id)}><FaPlus/></button>
+<button onClick={() => handleDelete(props.item.id)} className="text-red-700"><MdDelete /></button>
 </div>
 
 </td>
