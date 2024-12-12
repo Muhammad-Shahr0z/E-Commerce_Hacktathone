@@ -89,6 +89,8 @@ input{
   }
 }
 
+
+
 @layer base {
   * {
     @apply border-border;
@@ -97,6 +99,36 @@ input{
     @apply bg-background text-foreground;
   }
 }
+
+/* Global scroll bar styling */
+::-webkit-scrollbar {
+  width: 12px; /* Scroll bar ki width */
+  height: 12px; /* Horizontal scroll bar ke liye height */
+}
+
+/* Scroll bar track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light grey background */
+  border-radius: 10px;
+}
+
+/* Scroll bar thumb (draggable part) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #6e8efb, #a777e3); /* Gradient for a premium feel */
+  border-radius: 10px;
+  border: 2px solid #f1f1f1; /* To add a border around the thumb */
+}
+
+/* Hover effect on the thumb */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a7de0, #9161d4);
+}
+
+/* Optional: Styling for horizontal scroll bars */
+::-webkit-scrollbar-thumb:horizontal {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+}
+
 
 
 

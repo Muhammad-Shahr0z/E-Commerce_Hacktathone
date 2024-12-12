@@ -4,31 +4,19 @@ import Link from "next/link";
 import { useAtom } from "jotai";
 import CartComponent from "../components/CartComponent";
 import { addToCart } from "../addToCart";
-import { useEffect, useState } from "react";
+import { MdLocalGroceryStore } from "react-icons/md";
 
 const CartPage = () => {
+  const [addCart] = useAtom(addToCart);
 
-  const [addCart, serAddToCart] = useAtom(addToCart);
-  const [cartTotal, setCartTotal] = useState({ totalQuantity:0, totalPrice: 0 });
-
-
-  
-  
-  const cart = addCart
-  
-  const updatedCart = cart.map((item: { Quantity: number; price: number; }) => ({
+  const updatedCart = addCart.map((item) => ({
     ...item,
-    totalPrice: item.Quantity * item.price
+    totalPrice: item.Quantity * item.price,
   }));
-  
 
-  const totalAmount = updatedCart.reduce((acc: any, item: { totalPrice: any; }) => acc + item.totalPrice, 0);
-  
-  
-  // console.log(totalAmount);
+  const totalAmount = updatedCart.reduce((acc, item) => acc + item.totalPrice, 0);
 
-
-const EmptyCart = "Your Cart Is Empty";
+  const EmptyCart = "Your Cart Is Empty";
 
   return (
     <div className="bg-gray-50 min-h-screen max-w-[800px] mx-auto">
@@ -36,37 +24,39 @@ const EmptyCart = "Your Cart Is Empty";
         <p className="text-sm text-gray-600">
           <Link href="/" className="text-gray-800 hover:underline">
             Home
-          </Link>
+          </Link>{" "}
           / <span className="text-gray-500">Cart</span>
         </p>
-        <h1 className="text-[24px] md:text-[36px] clashDisplay my-2">
-          Your shopping cart
-        </h1>
+        <h1 className="text-[24px] md:text-[36px] font-semibold my-2">Your Shopping Cart</h1>
       </div>
 
       <div className="container mx-auto">
         <div className="bg-white shadow-md rounded-md overflow-x-auto">
           <table className="w-full text-left">
-            <thead className="bg-gray-100 text-gray-800 uppercase text-sm">
-              <tr>
-                <th className="py-3 px-2 sm:px-4">Product</th>
-                <th className="py-3 px-2 sm:px-4">Price</th>
-                <th className="py-3 px-2 sm:px-4">Quantity</th>
-              </tr>
-            </thead>
+          <thead className="bg-gray-100 text-gray-800 uppercase text-sm">
+  <tr>
+    <th className="py-4 px-2 sm:px-4 text-left">Product</th>
+    <th className="py-4 px-2 sm:px-4 text-center">Price</th>
+    <th className="py-4 px-2 sm:px-4 text-center">Quantity</th>
+    <th className="py-4 px-2 sm:px-4 text-center">Delete</th>
+  </tr>
+</thead>
+
             <tbody className="text-gray-600">
-              {/* yaha cart use krna hai */}
               {addCart.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="text-center py-4">
-                    {EmptyCart}
+                  <td colSpan={4} className="text-center py-4">
+                    <div className="flex justify-center items-center gap-x-4">
+                      <MdLocalGroceryStore className="text-2xl text-red-500" />
+                      {EmptyCart}
+                    </div>
                   </td>
                 </tr>
-              ) : null}
-
-              {addCart.map((item) => (
-                <CartComponent item={item} key={item.id} cart={item.Quantity} />
-              ))}
+              ) : (
+                addCart.map((item) => (
+                  <CartComponent item={item} key={item.id} cart={item.Quantity} />
+                ))
+              )}
             </tbody>
           </table>
         </div>

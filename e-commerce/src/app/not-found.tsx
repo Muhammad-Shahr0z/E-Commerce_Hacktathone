@@ -1,24 +1,30 @@
-// src/app/404.tsx
-import Link from 'next/link';
 
-export default function NotFound() {
+
+import Link from "next/link";
+import { FiHome, FiShoppingBag } from "react-icons/fi";
+
+export default function Custom404() {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen px-4 bg-gray-100 text-center">
-      <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">
-        404 - Page Not Found
-      </h1>
-      <p className="mt-4 text-gray-600">
-        Sorry, the page you are looking for does not exist.
-      </p>
-      <Link
-        href="/"
-        className="mt-6 px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition duration-300"
-      >
-        Go to Home Page
-      </Link>
-      <h1 className="text-2xl sm:text-4xl font-bold text-gray-700 py-4">
-        Page Under Construction
-      </h1>
+    <div className="flex flex-col min-h-screen">
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col items-center justify-center bg-white px-4 py-12">
+        <h1 className="text-6xl font-bold text-[#2A254B] mb-4">404</h1>
+        <h2 className="text-2xl font-semibold text-gray-700 mb-6">
+          Oops! Page Not Found
+        </h2>
+        <p className="text-gray-500 mb-8 text-center max-w-md">
+          The page you are looking for does not exist or has been moved. Let's
+          get you back on track.
+        </p>
+
+        <Link href="/" passHref>
+          <button className="flex items-center bg-[#2A254B] text-white px-6 py-3 rounded-md hover:bg-[#24203E] transition">
+            <FiHome className="mr-2" size={20} />
+            Go Back to Home
+          </button>
+        </Link>
+      </div>
+
     </div>
   );
 }
