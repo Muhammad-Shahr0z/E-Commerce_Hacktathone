@@ -1,8 +1,11 @@
+"use client"
+
+import { FaPlus , FaMinus } from "react-icons/fa";
 import Image from "next/image"
-import QuantityBtn from "./QuantityBtn";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAtom } from "jotai";
-import { totalCountAtom } from "../addToCart";
+import { addToCart } from "../addToCart";
+
 
 interface Item {
     id: number;
@@ -14,17 +17,43 @@ interface Item {
   
   interface ItemProps {
     item: Item;
-    cart: any;
+    cart: number;
+  
   }
   
-
-
 const CartComponent = (props:ItemProps) => {
 
-    // console.log(props.cart);
-    
 
-  const [totalCount, setTotalCount] = useState(props.item.Quantity);
+  // Add TO Cart Functionality  this is global veriable of jotai 
+  const [addCart, setAddToCart] = useAtom(addToCart);
+
+// console.log(props.cart);
+
+ 
+
+ // Decrement function
+ const handleDecrement = (id: number) => {
+
+  
+  setAddToCart((prevCart) =>
+    prevCart.map((item) =>
+      item.id === id && item.Quantity > 1
+        ? { ...item, Quantity: item.Quantity - 1 }
+        : item
+    )
+  );
+};
+
+  // Increment function
+  const handleIncrement = (id: number) => {
+    setAddToCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id && item.Quantity < 11 ? 
+      { ...item, Quantity: item.Quantity + 1 } : item
+      )
+    );
+  };
+
 
   return (
 <tr className="border-b">
@@ -38,15 +67,18 @@ const CartComponent = (props:ItemProps) => {
   />
   <span className="text-xs sm:text-base">{props.item.name}</span>
 </td>
-<td className="py-4 px-2 sm:px-4">${props.item.price * totalCount}</td>
+<td className="py-4 px-2 sm:px-4">${props.item.price * props.cart}</td>
 <td className="py-4 px-2 sm:px-4">
 
 
-<QuantityBtn CountState={{ totalCount, setTotalCount }} />
 
+{/*cards Slotes buttons */}
 
-
-
+<div className=" flex justify-between items-center w-[70px]">
+<button onClick={() => handleDecrement(props.item.id)}><FaMinus/></button>
+{props.item.Quantity}
+<button onClick={() => handleIncrement(props.item.id)}><FaPlus /></button>
+</div>
 
 </td>
 </tr>

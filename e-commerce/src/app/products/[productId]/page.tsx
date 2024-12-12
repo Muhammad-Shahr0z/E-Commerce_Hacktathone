@@ -35,10 +35,6 @@ const ProductListing = ({ params }: { params: Params }) => {
  
 const updatedObject = { ...SingleProduct, Quantity:count ,Finalprice:price};
 
-// console.log(updatedObject);
-  
-
-
   const handleCountIncrement = () => {
     if (count === 10) {
       alert("You can't add more than 10 items");
