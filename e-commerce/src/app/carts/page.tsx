@@ -4,12 +4,32 @@ import Link from "next/link";
 import { useAtom } from "jotai";
 import CartComponent from "../components/CartComponent";
 import { addToCart } from "../addToCart";
+import { useEffect, useState } from "react";
 
 const CartPage = () => {
-  const [addCart, serAddToCart] = useAtom(addToCart);
-  
-  const cartTotal = addCart.reduce((total, item) => total + item.price, 0);
 
+  const [addCart, serAddToCart] = useAtom(addToCart);
+  const [cartTotal, setCartTotal] = useState({ totalQuantity:0, totalPrice: 0 });
+
+  
+
+  // Function to update cartTotal on button click
+  const handleUpdateCartTotal = () => {
+    const newCartTotal = addCart.reduce(
+      (acc, product) => {
+        acc.totalQuantity += product.Quantity;
+        acc.totalPrice += product.price * product.Quantity;
+        return acc;
+      },
+      { totalQuantity: 0, totalPrice: 0 }
+    );
+
+    // Set the updated cart total values into state
+    setCartTotal(newCartTotal);
+  };
+
+
+  
 
   return (
     <div className="bg-gray-50 min-h-screen max-w-[800px] mx-auto">
@@ -39,9 +59,8 @@ const CartPage = () => {
               {/* yaha cart use krna hai */}
 
               {addCart.map((item) => (
-                <CartComponent item={item} key={item.id} />
-              ))
-              }
+                <CartComponent item={item} key={item.id} cart={addCart} />
+              ))}
             </tbody>
           </table>
         </div>
@@ -53,7 +72,7 @@ const CartPage = () => {
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span>Subtotal:</span>
-              <span>${cartTotal}</span>
+              <span>${cartTotal.totalPrice}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span>Shipping:</span>
@@ -61,11 +80,14 @@ const CartPage = () => {
             </div>
             <div className="flex justify-between text-lg font-medium">
               <span>Total:</span>
-              <span>${cartTotal}</span>
+              <span>${cartTotal.totalPrice}</span>
             </div>
           </div>
           <button className="bg-[#F9F9F9] text-[#2A254B] hover:bg-[#2A254B] hover:text-white w-full mt-4 py-2 rounded-md">
             Go to checkout
+          </button>
+          <button onClick={handleUpdateCartTotal} className="bg-[#F9F9F9] text-[#2A254B] hover:bg-[#2A254B] hover:text-white w-full mt-4 py-2 rounded-md">
+           Update Cart
           </button>
         </div>
       </div>

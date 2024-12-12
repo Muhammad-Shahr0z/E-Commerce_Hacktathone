@@ -1,13 +1,14 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import Features from "../../components/SectionOne";
 import NewCeramic from "../../components/NewCeramic";
 import { useAtom } from "jotai";
 import { productsData } from "@/app/store";
-import { addToCart } from "@/app/addToCart";
+import { addToCart, itemQuantity } from "@/app/addToCart";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 
 
 interface Product {
@@ -20,9 +21,6 @@ interface Params {
   productId: string;
 }
 
-
-
-
 const ProductListing = ({ params }: { params: Params }) => {
   const ParamsId: number = Number(params.productId);
 
@@ -32,9 +30,14 @@ const ProductListing = ({ params }: { params: Params }) => {
     (product) => product.id === ParamsId
   );
   const SingleProduct = ArrayProduct[0];
-
   const [count, setcount] = useState(1);
   const [price, setPrice] = useState(SingleProduct.price);
+ 
+const updatedObject = { ...SingleProduct, Quantity:count ,Finalprice:price};
+
+// console.log(updatedObject);
+  
+
 
   const handleCountIncrement = () => {
     if (count === 10) {
@@ -51,11 +54,10 @@ const ProductListing = ({ params }: { params: Params }) => {
     setcount(count - 1);
     setPrice(price - SingleProduct.price);
   };
-  
 
   
   // Add TO Cart Functionality 
-  const [addCart, serAddToCart] = useAtom(addToCart);
+  const [addCart, setAddToCart] = useAtom(addToCart);
 
   const handleAddToCart = () => {
 if (addCart.some((product: Product) => product.id === SingleProduct.id)) {
@@ -69,7 +71,9 @@ if (addCart.some((product: Product) => product.id === SingleProduct.id)) {
     progress: undefined,
   });
 }else {
-  serAddToCart([...addCart, SingleProduct]);
+  setAddToCart(
+ [...addCart, updatedObject], 
+  );
   toast.success("Item added to cart successfully!", {
     position: "top-right",
     autoClose: 3000,
@@ -91,9 +95,6 @@ if (addCart.some((product: Product) => product.id === SingleProduct.id)) {
 
 
     <section className="max-w-[1280px] mx-auto caret-transparent">
-
-
-
 
       <div className="px-4 md:px-8 lg:px-12 py-8">
         {/* Main Product Section */}
@@ -155,11 +156,14 @@ if (addCart.some((product: Product) => product.id === SingleProduct.id)) {
                 <div className="flex flex-wrap justify-between items-center gap-4">
                   <div className="flex items-center gap-4">
                     <h1>Amount:</h1>
+
                     <div className="flex gap-4 bg-[#F5F5F5] rounded-md px-4 py-2">
                       <button className="text-green-800 text-sm font-bold" onClick={handleCountDecrement}>-</button>
                       {count}
                       <button className="text-red-800 text-sm font-bold" onClick={handleCountIncrement}>+</button>
                     </div>
+
+
                   </div>
                   <button onClick={handleAddToCart} className="w-full md:w-[146px] h-[56px] bg-[#2A254B] text-white">
                     Add to cart

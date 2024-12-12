@@ -13,9 +13,6 @@ interface Product {
   id: number;
 }
 
-
-
-
 const Products = () => {
 
 const [products, setProducts] = useAtom<Product[]>(productsData)

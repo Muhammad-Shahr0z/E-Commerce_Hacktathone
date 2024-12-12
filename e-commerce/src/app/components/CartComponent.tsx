@@ -1,21 +1,31 @@
 import Image from "next/image"
+import QuantityBtn from "./QuantityBtn";
+import { useEffect, useState } from "react";
+import { useAtom } from "jotai";
+import { totalCountAtom } from "../addToCart";
 
 interface Item {
     id: number;
     name: string;
     price: number;
     image: string;
+    Quantity: number;
   }
   
   interface ItemProps {
     item: Item;
+    cart: any;
   }
   
 
 
 const CartComponent = (props:ItemProps) => {
 
+    // console.log(props.cart);
     
+
+  const [totalCount, setTotalCount] = useState(props.item.Quantity);
+
   return (
 <tr className="border-b">
 <td className="py-4 px-2 sm:px-4 flex items-center space-x-4">
@@ -28,13 +38,16 @@ const CartComponent = (props:ItemProps) => {
   />
   <span className="text-xs sm:text-base">{props.item.name}</span>
 </td>
-<td className="py-4 px-2 sm:px-4">${props.item.price}</td>
+<td className="py-4 px-2 sm:px-4">${props.item.price * totalCount}</td>
 <td className="py-4 px-2 sm:px-4">
-  <select className="border rounded-md px-2 py-1 text-xs sm:text-sm">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-  </select>
+
+
+<QuantityBtn CountState={{ totalCount, setTotalCount }} />
+
+
+
+
+
 </td>
 </tr>
   )

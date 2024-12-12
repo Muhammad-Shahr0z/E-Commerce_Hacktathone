@@ -7,6 +7,8 @@ const productsArray = [
       name: "The Candy Chair",
       price: 250,
       image: "/products/1.png",
+
+
     },
     {
       id: 2,
