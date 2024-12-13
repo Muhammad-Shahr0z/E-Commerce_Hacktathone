@@ -80,9 +80,11 @@ const CartPage = () => {
             </div>
           </div>
 
-          <button className="bg-[#F9F9F9] text-[#2A254B] hover:bg-[#2A254B] hover:text-white w-full mt-4 py-2 rounded-md">
+<Link href="/checkOutPage">
+          <button disabled={addCart.length === 0}  className="bg-[#F9F9F9] text-[#2A254B] disabled:bg-gray-200 disabled:text-black hover:bg-[#2A254B] hover:text-white w-full mt-4 py-2 rounded-md">
             Go to checkout
           </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -17,6 +17,7 @@ import {
 import { useAtom } from "jotai";
 import { addToCart } from "../addToCart";
 import Navbar from "./Navbar";
+import { useEffect } from "react";
 
 
 
@@ -33,6 +34,9 @@ interface Params {
 const Header = () => {
   
   const [addCart, serAddToCart] = useAtom(addToCart);
+  useEffect(()=>{
+    
+  },[addCart.length])
 
 
   return (
