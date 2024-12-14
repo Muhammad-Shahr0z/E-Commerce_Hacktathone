@@ -20,7 +20,6 @@ export const metadata: Metadata = {
   description: "E Commerce Website By Muhammad Shahroz",
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,12 +30,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-    
-
-         < Header/>
-
+        <Header />
         {children}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );
