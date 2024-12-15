@@ -9,7 +9,11 @@ import Studio from "./components/Studio";
 
 const page = () => {
   return (
+
     <main>
+
+
+
       <WidthWrapper>
         <Hero />
         <SectionOne />
@@ -20,6 +24,7 @@ const page = () => {
       <WidthWrapper>
         <Studio />
       </WidthWrapper>
+
     </main>
   );
 };
