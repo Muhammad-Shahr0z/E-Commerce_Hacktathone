@@ -31,7 +31,7 @@ const PopularProduct = () => {
           <Link href="/products/3">
           <div className="xl:w-[305px] w-full lg:w-[320px]  md:w-[220px]  h-fit xl:h-[462px] bg-white gap-[24px] xl:hidden flex-col hidden md:flex">
             <Image
-              src="/newcomics/1.png"
+              src="/products/3.png"
               height={375}
               width={305}
               alt="CHAIR"

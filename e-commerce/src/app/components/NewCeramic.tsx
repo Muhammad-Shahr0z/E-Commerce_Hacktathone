@@ -44,7 +44,7 @@ const NewCeramic = (props: Props) => {
 
         <div className="xl:w-[305px] w-full lg:w-[310px]  md:w-[220px]  h-fit xl:h-[462px] bg-white gap-[24px] xl:hidden flex-col hidden md:flex">
           <Image
-            src="/newcomics/5.png"
+            src="/products/6.png"
             height={375}
             width={305}
             alt="CHAIR"
@@ -65,7 +65,7 @@ const NewCeramic = (props: Props) => {
 
         <div className="xl:w-[305px] w-full lg:w-[310px]  md:w-[220px]  bg-white gap-[24px] xl:hidden flex-col hidden md:flex">
           <Image
-            src="/newcomics/6.png"
+            src="/products/8.png"
             height={375}
             width={305}
             alt="CHAIR"
