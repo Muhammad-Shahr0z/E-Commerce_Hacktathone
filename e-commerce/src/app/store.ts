@@ -8,8 +8,8 @@ const productsArray = [
       price: 250,
       image: "/products/1.png",
 
-
     },
+    
     {
       id: 2,
       name: "Pluto Vase Set",
