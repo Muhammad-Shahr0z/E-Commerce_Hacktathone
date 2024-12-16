@@ -1,7 +1,7 @@
 
 
 import Link from "next/link";
-import { FiHome, FiShoppingBag } from "react-icons/fi";
+import { FiHome } from "react-icons/fi";
 
 export default function Custom404() {
   return (

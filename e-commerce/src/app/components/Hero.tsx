@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+
 const Hero = () => {
   return (
     <main className="w-full lg:flex-row md:h-[584px] h-fit  bg-slate-200 mx-auto md:flex sm:flex-col">
@@ -18,6 +19,7 @@ const Hero = () => {
           </button>
           </Link>
         </div>
+
 
         {/* div 02 */}
 
@@ -44,6 +46,7 @@ const Hero = () => {
           height={584}
         ></Image>
       </div>
+
     </main>
   );
 };
