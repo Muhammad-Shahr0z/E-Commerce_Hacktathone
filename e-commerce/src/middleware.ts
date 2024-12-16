@@ -11,7 +11,6 @@ const isPublicRoute = createRouteMatcher([
   '/about-us',
   '#ceramic',
 
-
 ])
 
 export default clerkMiddleware(async (auth, request) => {

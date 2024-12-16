@@ -4,9 +4,28 @@ import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import { useAtom } from "jotai";
 import { addToCart } from "../addToCart";
+import { useUser } from '@clerk/nextjs';
+import { useState, useEffect } from "react";
 
 const CheckoutPage = () => {
+  const { user, isSignedIn, isLoaded } = useUser();
   const [addCart, setAddToCart] = useAtom(addToCart);
+
+  // State to store the shipping date and time
+  const [shippingDateTime, setShippingDateTime] = useState<string>("");
+
+  useEffect(() => {
+    const now = new Date();
+    const formattedDateTime = now.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+    setShippingDateTime(formattedDateTime);
+  }, []);
 
   const updatedCart = addCart.map(
     (item: { Quantity: number; price: number }) => ({
@@ -73,6 +92,25 @@ const CheckoutPage = () => {
           <h2 className="text-base sm:text-xl md:text-2xl font-bold mb-4 text-[#2A254B]">
             Order Summary
           </h2>
+
+          {/* User Details */}
+          {isLoaded && isSignedIn && (
+            <div className="mb-4 text-sm sm:text-base">
+              <p className="font-medium text-gray-700">
+                <span className="text-gray-500">Name:</span> {user.fullName}
+              </p>
+              <p className="font-medium text-gray-700">
+                <span className="text-gray-500">Email:</span> {user.primaryEmailAddress?.emailAddress}
+              </p>
+              <p className="font-medium text-gray-700">
+                <span className="text-gray-500">Address:</span> Karachi, Pakistan
+              </p>
+              <p className="font-medium text-gray-700">
+                <span className="text-gray-500">Shipping Date & Time:</span> {shippingDateTime}
+              </p>
+            </div>
+          )}
+
           <div className="flex justify-between mb-2 text-xs sm:text-sm md:text-base">
             <span className="text-gray-600">Subtotal:</span>
             <span className="font-medium">${totalAmount}</span>
@@ -88,7 +126,10 @@ const CheckoutPage = () => {
 
           {/* Checkout Button */}
           <Link href="/orderplace">
-            <button onClick={() => setAddToCart([])}  className="w-full py-2 text-sm sm:text-base bg-[#2A254B] text-white font-semibold rounded-md hover:bg-[#4b437d] hover:text-[#2A254B]">
+            <button
+              onClick={() => setAddToCart([])}
+              className="w-full py-2 text-sm sm:text-base bg-[#2A254B] text-white font-semibold rounded-md hover:bg-[#4b437d] hover:text-[#2A254B]"
+            >
               Complete Purchase
             </button>
           </Link>

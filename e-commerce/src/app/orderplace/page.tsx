@@ -6,7 +6,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { addToCart } from "../addToCart";
 
 const OrderSuccessPage = () => {
-   const [addCart, setAddToCart] = useAtom(addToCart);
+
   return (
     <div className="bg-gray-50 min-h-screen overflow-x-hidden max-w-[800px] mx-auto">
    
