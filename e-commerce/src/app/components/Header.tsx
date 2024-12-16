@@ -95,7 +95,10 @@ const Header = () => {
               }
             
             </div>
+
             <IoSearch className=" md:hidden cursor-pointer" />
+            <div className="md:hidden">
+
             {!isSignedIn ? (
                 <CgProfile className="hidden md:block cursor-pointer " />
               ): 
@@ -104,6 +107,7 @@ const Header = () => {
                 </div>
               
               }
+            </div>
             
       
 
