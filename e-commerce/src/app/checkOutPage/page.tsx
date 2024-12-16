@@ -95,20 +95,35 @@ const CheckoutPage = () => {
 
           {/* User Details */}
           {isLoaded && isSignedIn && (
-            <div className="mb-4 text-sm sm:text-base">
-              <p className="font-medium text-gray-700">
-                <span className="text-gray-500">Name:</span> {user.fullName}
-              </p>
-              <p className="font-medium text-gray-700">
-                <span className="text-gray-500">Email:</span> {user.primaryEmailAddress?.emailAddress}
-              </p>
-              <p className="font-medium text-gray-700">
-                <span className="text-gray-500">Address:</span> Karachi, Pakistan
-              </p>
-              <p className="font-medium text-gray-700">
-                <span className="text-gray-500">Shipping Date & Time:</span> {shippingDateTime}
-              </p>
-            </div>
+       <div className="mb-4 text-sm sm:text-base">
+       <p className="font-medium text-gray-700">
+         <span className="text-gray-500">Name:</span> {user.fullName}
+       </p>
+       <p className="font-medium text-gray-700">
+         <span className="text-gray-500">Email:</span> {user.primaryEmailAddress?.emailAddress}
+       </p>
+       
+       {/* Display Address from Metadata */}
+       <p className="font-medium text-gray-700">
+  <span className="text-gray-500">Address:</span> 
+  {typeof user?.publicMetadata?.address === 'string' ? 
+    user.publicMetadata.address : 'Karachi, Pakistan'}
+</p>
+
+
+
+       <p className="font-medium text-gray-700">
+         <span className="text-gray-500">Shipping Date & Time:</span> {shippingDateTime}
+       </p>
+     
+       {/* Display Phone Number if Available */}
+       {user.phoneNumbers?.[0]?.phoneNumber && (
+         <p className="font-medium text-gray-700">
+           <span className="text-gray-500">Phone:</span> {user.phoneNumbers[0].phoneNumber}
+         </p>
+       )}
+     </div>
+     
           )}
 
           <div className="flex justify-between mb-2 text-xs sm:text-sm md:text-base">
