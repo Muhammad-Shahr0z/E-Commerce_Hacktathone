@@ -169,7 +169,7 @@ const Header = () => {
                           Tables
                         </Link>
                         <Link
-                          href="/"
+                          href="/tables"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
                           Chairs
