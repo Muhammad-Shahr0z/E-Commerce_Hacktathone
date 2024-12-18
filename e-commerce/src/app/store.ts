@@ -87,3 +87,4 @@ const productsArray = [
 
 
 export const productsData = atom(productsArray);
+export const filterCatogory = atom<string>("allProducts");
