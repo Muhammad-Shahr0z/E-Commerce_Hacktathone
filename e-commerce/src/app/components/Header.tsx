@@ -21,20 +21,9 @@ import { useEffect } from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import SignInButtonComponent from "./LoginButton";
 
-interface Product {
-  image: string;
-  name: string;
-  price: number;
-  id: number;
-}
-interface Params {
-  productId: string;
-}
-
 const Header = () => {
-  const { user, isLoaded, isSignedIn } = useUser();
-  const [addCart, serAddToCart] = useAtom(addToCart);
-  useEffect(() => {}, [addCart.length]);
+  const { user,isSignedIn } = useUser();
+  const [addCart] = useAtom(addToCart);
 
   return (
     <>
@@ -77,7 +66,7 @@ const Header = () => {
             <IoSearch className="md:hidden cursor-pointer" />
             <div className="md:hidden">
               {!isSignedIn ? (
-                <CgProfile className="hidden md:block cursor-pointer " />
+               <CgProfile className="block cursor-pointer" />
               ) : (
                 <div className="flex justify-center items-center gap-2">
                   <UserButton />
