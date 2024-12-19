@@ -73,15 +73,15 @@ const productsArray = [
   { id: 49, name: "Classic Tableware Set", price: 80, image: "/tableware/T37.webp" },
   { id: 50, name: "Elegant Tableware Collection", price: 90, image: "/tableware/T38.webp" },
   { id: 51, name: "Modern Tableware Set", price: 95, image: "/tableware/T39.webp" },
-  { id: 52, name: "Luxury Gold Tableware", price: 120, image: "/tableware/T40.avif" },
-  { id: 53, name: "Ceramic Tableware Set", price: 110, image: "/tableware/T41.avif" },
-  { id: 54, name: "Minimalist Tableware Set", price: 85, image: "/tableware/T42.avif" },
+  { id: 52, name: "Luxury Gold Tableware", price: 120, image: "/tableware/T40.jpg" },
+  { id: 53, name: "Ceramic Tableware Set", price: 110, image: "/tableware/T41.jpg" },
+  { id: 54, name: "Minimalist Tableware Set", price: 85, image: "/tableware/T42.jpg" },
   { id: 55, name: "Rustic Tableware Set", price: 100, image: "/tableware/T43.jpeg" },
   { id: 56, name: "Gourmet Tableware Set", price: 130, image: "/tableware/T44.jpeg" },
   { id: 57, name: "Luxury Porcelain Tableware", price: 140, image: "/tableware/T45.jpeg" },
   { id: 58, name: "Antique Tableware Set", price: 150, image: "/tableware/T46.webp" },
-  { id: 59, name: "Fine Bone China Tableware", price: 160, image: "/tableware/T47.avif" },
-  { id: 60, name: "Exquisite Tableware Set", price: 170, image: "/tableware/T48.avif" }
+  { id: 59, name: "Fine Bone China Tableware", price: 160, image: "/tableware/T47.jpg" },
+  { id: 60, name: "Exquisite Tableware Set", price: 170, image: "/tableware/T48.jpg" }
 ];
 
 
