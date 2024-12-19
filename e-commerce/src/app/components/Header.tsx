@@ -17,19 +17,61 @@ import {
 import { useAtom } from "jotai";
 import { addToCart } from "../addToCart";
 import Navbar from "./Navbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import SignInButtonComponent from "./LoginButton";
 
 const Header = () => {
   const { user,isSignedIn } = useUser();
   const [addCart] = useAtom(addToCart);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
 
   return (
     <>
+
+
       <header className="max-w-[1440px] mx-auto md:h-[66px] md:px-10 px-5 sticky top-0 md:static backdrop-blur-sm z-20">
+
+
+
+
         <div className="md:border-b-[1px] border-[#0000004f] w-full mx-auto flex h-[66px] justify-between items-center md:pb-2">
-          <IoSearch className="text-xl hidden md:block cursor-pointer" />
+
+
+
+{/* Search Bar */}
+<div
+  className={`absolute md:top-0 top-16 md:left-16 left-0  bg-white rounded-md p-2 transition-all duration-300 ease-in-out transform z-[555] ${
+    isSearchOpen ? "translate-y-0 opacity-100" : "-translate-y-12 opacity-0"
+  }`}
+>
+  <input
+    type="search"
+    placeholder="Search..."
+    className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+          {/* Search Icon */}
+          <IoSearch
+            className="text-xl cursor-pointer"
+            onClick={toggleSearch}
+          />
 
           <h1 className="text-[#22202E] text-2xl font-semibold clashDisplay md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
             <Link href="/">Avion</Link>
@@ -63,7 +105,6 @@ const Header = () => {
               )}
             </div>
 
-            <IoSearch className="md:hidden cursor-pointer" />
             <div className="md:hidden">
               {!isSignedIn ? (
                <CgProfile className="block cursor-pointer" />
