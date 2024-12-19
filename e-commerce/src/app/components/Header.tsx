@@ -38,7 +38,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="max-w-[1440px] mx-auto md:h-[66px] md:px-10 px-5 sticky top-0 md:static backdrop-blur-sm">
+      <header className="max-w-[1440px] mx-auto md:h-[66px] md:px-10 px-5 sticky top-0 md:static backdrop-blur-sm z-20">
         <div className="md:border-b-[1px] border-[#0000004f] w-full mx-auto flex h-[66px] justify-between items-center md:pb-2">
           <IoSearch className="text-xl hidden md:block cursor-pointer" />
 
@@ -141,20 +141,20 @@ const Header = () => {
                           Tables
                         </Link>
                         <Link
-                          href="/tables"
+                          href="/chairs"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
                           Chairs
                         </Link>
 
                         <Link
-                          href="/Crockery"
+                          href="/tableware"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
                           Tableware
                         </Link>
                         <Link
-                          href="/Tableware"
+                          href="/cutlery"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
                           Cutlery
