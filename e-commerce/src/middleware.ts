@@ -10,6 +10,10 @@ const isPublicRoute = createRouteMatcher([
   '/carts',
   '/about-us',
   '#ceramic',
+  '/cutlery',
+  '/tableware',
+  '/chairs',
+  '/Tables',
 
 ])
 
