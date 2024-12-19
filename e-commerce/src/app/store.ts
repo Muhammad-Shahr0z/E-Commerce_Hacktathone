@@ -35,7 +35,7 @@ const productsArray = [
   { id: 20, name: "Office Reception", price: 290, image: "/tables/T8.webp" },
   { id: 21, name: "Home Writing", price: 350, image: "/tables/T9.jpg" },
   { id: 22, name: "Office Meeting", price: 400, image: "/tables/T10.jpg" },
-  { id: 23, name: "Home Folding", price: 380, image: "/tables/T11.jpeg" },
+  { id: 23, name: "Home Folding", price: 380, image: "/tables/T11.jpg" },
   { id: 24, name: "Office Standing", price: 420, image: "/tables/T12.webp" },
 
 
