@@ -73,7 +73,7 @@ const productsArray = [
   { id: 49, name: "Classic Tableware Set", price: 80, image: "/tableware/T37.webp" },
   { id: 50, name: "Elegant Tableware Collection", price: 90, image: "/tableware/T38.webp" },
   { id: 51, name: "Modern Tableware Set", price: 95, image: "/tableware/T39.webp" },
-  { id: 52, name: "Luxury Gold Tableware", price: 120, image: "/tableware/T40.jpg" },
+  { id: 52, name: "Luxury Gold Tableware", price: 120, image: "/tableware/T40.webp" },
   { id: 53, name: "Ceramic Tableware Set", price: 110, image: "/tableware/T41.jpg" },
   { id: 54, name: "Minimalist Tableware Set", price: 85, image: "/tableware/T42.jpg" },
   { id: 55, name: "Rustic Tableware Set", price: 100, image: "/tableware/T43.jpg" },
