@@ -20,56 +20,45 @@ import Navbar from "./Navbar";
 import { useEffect, useState } from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import SignInButtonComponent from "./LoginButton";
+import { inputValueAtom } from "../store";
 
 const Header = () => {
-  const { user,isSignedIn } = useUser();
+  const { user, isSignedIn } = useUser();
   const [addCart] = useAtom(addToCart);
+  const [inputValue,setInputValue] = useAtom(inputValueAtom);
+
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   };
 
+console.log(inputValue);
+
+
   return (
     <>
-
-
       <header className="max-w-[1440px] mx-auto md:h-[66px] md:px-10 px-5 sticky top-0 md:static backdrop-blur-sm z-20">
-
-
-
-
         <div className="md:border-b-[1px] border-[#0000004f] w-full mx-auto flex h-[66px] justify-between items-center md:pb-2">
+          {/* Search Bar */}
+          <div
+            className={`absolute hidden md:block  top-16 md:top-0 md:left-20  md:bg-white rounded-md p-2 transition-all duration-300 ease-in-out transform ${
+              isSearchOpen
+                ? "translate-y-0 opacity-100"
+                : "-translate-y-12 opacity-0"
+            }`}
+          >
+            <input
+              type="search"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Search..."
+              className="w-full z-50 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
-
-
-{/* Search Bar */}
-<div
-  className={`absolute md:top-0 top-16 md:left-16 left-0  bg-white rounded-md p-2 transition-all duration-300 ease-in-out transform z-[555] ${
-    isSearchOpen ? "translate-y-0 opacity-100" : "-translate-y-12 opacity-0"
-  }`}
->
-  <input
-    type="search"
-    placeholder="Search..."
-    className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-  />
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-          {/* Search Icon */}
           <IoSearch
-            className="text-xl cursor-pointer"
+            className="text-xl cursor-pointer hidden md:block"
             onClick={toggleSearch}
           />
 
@@ -105,17 +94,6 @@ const Header = () => {
               )}
             </div>
 
-            <div className="md:hidden">
-              {!isSignedIn ? (
-               <CgProfile className="block cursor-pointer" />
-              ) : (
-                <div className="flex justify-center items-center gap-2">
-                  <UserButton />
-                  <span className="text-sm hidden">{user?.fullName}</span>
-                </div>
-              )}
-            </div>
-
             <Link
               className="flex justify-center items-center md:hidden cursor-pointer"
               href="/carts"
@@ -127,6 +105,16 @@ const Header = () => {
                 </span>
               </span>
             </Link>
+            <div className="md:hidden">
+              {!isSignedIn ? (
+                <CgProfile className="block cursor-pointer" />
+              ) : (
+                <div className="flex justify-center items-center gap-2">
+                  <UserButton />
+                  <span className="text-sm hidden">{user?.fullName}</span>
+                </div>
+              )}
+            </div>
             {/* Shadcn SHeet DIv */}
             <div className="md:hidden z-10 h-6 w-6">
               <Sheet>
