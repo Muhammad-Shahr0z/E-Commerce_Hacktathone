@@ -5,17 +5,55 @@ import ViewCollectionButton from "./ViewCollectionButton";
 import { productsData } from "../store";
 import { useAtom } from "jotai";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { client } from "@/sanity/lib/client";
+import { log } from "console";
+
+
+
 
 interface Product {
-  image: string;
-  name: string;
+  category: string;
+  imageUrl: string;
   price: number;
-  id: number;
+  slug: string;
+  name: string;
+  productDescription: string;
 }
+
+
 
 const PopularProduct = () => {
 
-  const [products, setProducts] = useAtom<Product[]>(productsData)
+  const [products, setProducts] = useState<Product[] | null>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const query = `*[_type == "products"]{
+          name, category, price,
+          "slug": slug.current,
+          "imageUrl": image.asset->url,
+          productDescription
+        }`;
+        const fetchedProduct: Product[] = await client.fetch(query);
+        setProducts(fetchedProduct);
+
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+
+  if (!products) {
+    return <div className="flex flex-col gap-4 items-center justify-center h-[80vh]">
+      <p className="text-2xl font-bold tracking-wider text-blue-600">Loading...</p>
+      <div className="w-32 h-32 rounded-full border-t border-blue-600 animate-spin"></div>;
+    </div>
+  }
 
 
   return (
@@ -55,7 +93,7 @@ const PopularProduct = () => {
               height={630}
               width={375}
               alt="CHAIR"
-              className="md:w-auto h-auto animate-pulse"
+              className="md:w-auto h-auto"
             ></Image>
             <div>
               <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
@@ -68,12 +106,16 @@ const PopularProduct = () => {
           </div>
 
   
-{products.slice(0,2).map((product) => (
 
 
-      <Card  product={product} key={product.id} />
 
-))} 
+          {[...products]
+  .sort(() => Math.random() - 0.5) // Shuffle the products array
+  .slice(0, 2)
+  .map((product) => (
+    <Card product={product} key={product.slug} />
+  ))}
+
 
         </div>
   <ViewCollectionButton/>

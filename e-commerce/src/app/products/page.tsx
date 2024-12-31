@@ -1,93 +1,84 @@
-"use client";
+"use client"
+
 import Card from "@/app/components/Card";
 import FilterBar from "@/app/components/FilterBar";
 import WidthWrapper from "@/app/components/WidthWrapper";
 import ViewCollectionButton from "../components/ViewCollectionButton";
 import { useAtom } from "jotai";
 import { filterCatogory, inputValueAtom, productsData } from "../store";
+import { client } from "@/sanity/lib/client";
+import { use, useEffect } from "react";
+
 
 interface Product {
-  image: string;
-  name: string;
+  category: string;
+  imageUrl: string;
   price: number;
-  id: number;
+  slug: string;
+  name: string;
+  productDescription: string;
 }
 
-const Products = () => {
-  const [products] = useAtom<Product[]>(productsData);
-  const [inputValue, setInputValue] = useAtom(inputValueAtom);
 
+export default function AllProducts() {
+  const [inputValue,setInputValue] = useAtom(inputValueAtom);
+  const [products, setProducts] = useAtom<Product[]>(productsData);
   const [selectedCategory] = useAtom(filterCatogory);
+
+ 
+useEffect(() => {
+    const fetchProducts = async () => {
+      const query = `*[_type == "products"]{
+        name, category, price,
+        "slug":slug.current,
+        "imageUrl": image.asset->url
+      }`;
+      const fetchedProducts: Product[] = await client.fetch(query);
+      setProducts(fetchedProducts);
+    };
+    
+    fetchProducts();
+  },[]); 
+
+
+
+  // Filter the products based on inputValue
+const filteredProducts = products.filter((product) =>
+  product.name.toLowerCase().includes(inputValue.toLowerCase())
+);
+
+// agar Search kia jayega to yeh wala code run hoga nichy wala nahi hoga
+
+if (inputValue !== "") {
+  const hasResults = filteredProducts.length > 0;
 
   return (
     <WidthWrapper>
       <FilterBar />
       <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center">
-        {selectedCategory === "decoration-items" && (
-          <>
-            <h2 className="text-2xl self-start font-semibold my-5">
-              Decoration Items
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {products.slice(0, 12).map((product) => (
-                <Card key={product.id} product={product} />
-              ))}
-            </div>
-          </>
+        <h2 className="text-2xl self-start font-semibold my-5">
+          Search Results
+        </h2>
+        {hasResults ? (
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {filteredProducts.map((product: Product) => (
+              <Card key={product.slug} product={product} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500 text-lg">No products found.</p>
         )}
+        <ViewCollectionButton />
+      </div>
+    </WidthWrapper>
+  );
+}
 
-        {selectedCategory === "tables" && (
-          <>
-            {/* tables */}
-            <h2 className="text-2xl self-start font-semibold my-5">Tables</h2>
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {products.slice(12, 24).map((product) => (
-                <Card key={product.id} product={product} />
-              ))}
-            </div>
-          </>
-        )}
+  return (
 
-        {selectedCategory === "cutlery" && (
-          <>
-            {/* Cutlery */}
-            <h2 className="text-2xl self-start font-semibold my-5">
-              Cutlery Sets
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {products.slice(24, 36).map((product) => (
-                <Card key={product.id} product={product} />
-              ))}
-            </div>
-          </>
-        )}
-
-        {selectedCategory === "chairs" && (
-          <>
-            {/* Chairs*/}
-            <h2 className="text-2xl self-start font-semibold my-5">Chairs</h2>
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {products.slice(36, 48).map((product) => (
-                <Card key={product.id} product={product} />
-              ))}
-            </div>
-          </>
-        )}
-
-        {selectedCategory === "tableware" && (
-          <>
-            {/* Tableware*/}
-            <h2 className="text-2xl self-start font-semibold my-5">
-              Tableware
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {products.slice(48, 60).map((product) => (
-                <Card key={product.id} product={product} />
-              ))}
-            </div>
-          </>
-        )}
-
+    <WidthWrapper>
+      <FilterBar />
+      <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center">
         {selectedCategory === "allProducts" && (
           <>
             {/* All Products*/}
@@ -96,20 +87,39 @@ const Products = () => {
               All Products
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {products
-                .filter((product) => {
-                  if (inputValue.trim() === "") return true;
-                  return product.name
-                    .trim()
-                    .toLowerCase()
-                    .includes(inputValue.trim().toLowerCase());
-                })
-                .map((product) => (
-                  <Card key={product.id} product={product} />
-                ))}
+              {products.map((product:Product) => 
+            
+                <Card key={product.slug} product={product} />
+
+                )}
             </div>
+
           </>
-        )}
+       )}
+
+        {selectedCategory != "allProducts" && (
+          <>
+       
+
+            <h2 className="text-2xl self-start font-semibold my-5">
+              All Products
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {products.filter((product:Product)=>product.category == selectedCategory).map((product:Product) => 
+      
+                <Card key={product.slug} product={product} />
+
+                )}
+            </div>
+
+          </>
+       )}
+
+
+
+
+
+
 
         <ViewCollectionButton />
       </div>
@@ -117,4 +127,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+

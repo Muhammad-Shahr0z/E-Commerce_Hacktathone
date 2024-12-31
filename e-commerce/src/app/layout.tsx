@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
+import {ConditionalHeader , ConditionalFooter} from "./components/conditionalLayout";
+
 
 const clerkFrontendApi = process.env.NEXT_PUBLIC_CLERK_FRONTEND_API!; // Use the environment variable
 
@@ -33,9 +35,13 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <Header />
+
+
+        <ConditionalHeader/>
+      
           {children}
-          <Footer />
+
+        <ConditionalFooter />
         </body>
       </html>
     </ClerkProvider>

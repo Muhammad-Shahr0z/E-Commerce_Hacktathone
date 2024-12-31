@@ -7,12 +7,20 @@ import { addToCart } from "../addToCart";
 import { MdDelete } from "react-icons/md";
 
 interface Item {
-  id: number;
-  name: string;
+  category: string;
+  imageUrl: string;
   price: number;
-  image: string;
+  slug: string;
+  name: string;
   Quantity: number;
+  Finalprice:number
 }
+
+
+
+
+
+
 
 interface ItemProps {
   item: Item;
@@ -22,24 +30,24 @@ interface ItemProps {
 const CartComponent = (props: ItemProps) => {
   const [addCart, setAddToCart] = useAtom(addToCart);
 
-  const handleDecrement = (id: number) => {
+  const handleDecrement = (id:String) => {
     setAddToCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === id && item.Quantity > 1 ? { ...item, Quantity: item.Quantity - 1 } : item
+        item.slug === id && item.Quantity > 1 ? { ...item, Quantity: item.Quantity - 1 } : item
       )
     );
   };
 
-  const handleIncrement = (id: number) => {
+  const handleIncrement = (id:string) => {
     setAddToCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === id && item.Quantity < 10 ? { ...item, Quantity: item.Quantity + 1 } : item
+        item.slug === id && item.Quantity < 10 ? { ...item, Quantity: item.Quantity + 1 } : item
       )
     );
   };
 
-  const handleDelete = (id: number) => {
-    setAddToCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  const handleDelete = (id: string) => {
+    setAddToCart((prevCart) => prevCart.filter((item) => item.slug !== id));
   };
 
   return (
@@ -47,7 +55,7 @@ const CartComponent = (props: ItemProps) => {
       {/* Product Column */}
       <td className="py-2 px-1 sm:py-4 sm:px-4 flex items-center space-x-2 sm:space-x-4">
         <Image
-          src={props.item.image}
+          src={props.item.imageUrl}
           alt={props.item.name}
           className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-md"
           height={64}
@@ -70,7 +78,7 @@ const CartComponent = (props: ItemProps) => {
         <div className="flex items-center justify-center space-x-1 sm:space-x-2">
           {/* Decrement Button */}
           <button
-            onClick={() => handleDecrement(props.item.id)}
+            onClick={() => handleDecrement(props.item.slug)}
             className="bg-gray-200 hover:bg-gray-300 px-1 py-1 rounded sm:px-2"
           >
             <FaMinus className="text-xs sm:text-sm" />
@@ -83,7 +91,7 @@ const CartComponent = (props: ItemProps) => {
 
           {/* Increment Button */}
           <button
-            onClick={() => handleIncrement(props.item.id)}
+            onClick={() => handleIncrement(props.item.slug)}
             className="bg-gray-200 hover:bg-gray-300 px-1 py-1 rounded sm:px-2"
           >
             <FaPlus className="text-xs sm:text-sm" />
@@ -95,7 +103,7 @@ const CartComponent = (props: ItemProps) => {
       <td className="py-2 px-1 sm:py-4 sm:px-4 text-center">
   <div className="flex items-center justify-center h-full">
     <button
-      onClick={() => handleDelete(props.item.id)}
+      onClick={() => handleDelete(props.item.slug)}
       className="text-red-500 hover:text-red-700"
     >
       <MdDelete className="text-xl sm:text-2xl" />

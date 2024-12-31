@@ -4,6 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
+import { useEffect, useState } from "react";
 
 interface Product {
   category:string
@@ -15,33 +16,42 @@ interface Product {
 
 
 
-export default async function TablesPage() {
+export default function TablesPage() {
 
-  const query  = `*[_type == "products"]{
-  name,category,price,
-    "slug":slug.current,
-    "imageUrl": image.asset->url
+  const [products, setProducts] = useState<Product[] | null>(null)
+  useEffect(() => {
+    async function fetchData() {
+      const query  = `*[_type == "products"]{
+        name,category,price,
+          "slug":slug.current,
+          "imageUrl": image.asset->url
     
-}`
+      }`
+      const products:Product[] = await client.fetch(query)
+      setProducts(products)
+    }
+    fetchData()
+  }, [])
+  
+  
+  if(!products){
+    return <div className="flex flex-col gap-4 items-center justify-center h-[80vh]">
+      <p className="text-2xl font-bold tracking-wider text-blue-600">Loading...</p>
+      <div className="w-32 h-32 rounded-full border-t border-blue-600 animate-spin"></div>;
+    </div>
+  }
 
-const products:Product[] = await client.fetch(query)
 
 
-
-
-console.log(products)
-
-
-
-  return (
-    <div className="max-w-screen-xl mx-auto p-4">
-   <h1 className="text-4xl font-extrabold mb-8 text-center tracking-wide text-[#2A254B]">
-  Chairs Collection
+return (
+<div className="max-w-screen-xl mx-auto p-4">
+<h1 className="text-4xl font-extrabold mb-8 text-center tracking-wide text-[#2A254B]">
+ Ceramic Collection
 </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
-        {products.filter((product:Product) => product.category === "chairs").map((product:Product) => (
+        {products.filter((product:Product) => product.category === "decoration-items").map((product:Product) => (
       
           <div
 
@@ -55,7 +65,7 @@ console.log(products)
                 src={product.imageUrl}
                 alt={product.name}
                 layout="fill"
-                objectFit="cover"
+     
                 />
             </div>
                 </Link>

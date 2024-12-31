@@ -1,23 +1,28 @@
 import { atom } from "jotai"
 
-const initialCarts = [
+
+interface Product {
+  category: string;
+  imageUrl: string;
+  price: number;
+  slug: string;
+  name: string;
+  Quantity: number;
+  Finalprice:number
+}
+
+
+const initialCarts:Product[] = [
     {
-      id: 11,
+      slug: "modern-cutlery-2",
+      category: "cutlery",
       name: "The Lucky Lamp",
       price: 299,
-      image: "/products/11.png",
+      imageUrl: "/products/11.png",
       Quantity: 1,
       Finalprice:299
     },
-    {
-      id: 12,
-      name: "The Lucky Lamp",
-      price: 239,
-      image: "/products/12.png",
-      Quantity: 1,
-      Finalprice:239
-    },
-   
+
   ]  
   
 

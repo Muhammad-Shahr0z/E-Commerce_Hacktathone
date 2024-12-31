@@ -1,19 +1,18 @@
 "use client"
+
 import Image from "next/image";
 import Card from "./Card";
-
-
-import { useAtom } from "jotai";
-import { productsData } from "@/app/store";
-
+import { useEffect, useState } from "react";
+import { client } from "@/sanity/lib/client";
 
 interface Product {
-  image: string;
-  name: string;
+  category: string;
+  imageUrl: string;
   price: number;
-  id: number;
+  slug: string;
+  name: string;
+  productDescription: string;
 }
-
 
 
 interface Props {
@@ -21,8 +20,40 @@ interface Props {
 }
 
 const NewCeramic = (props: Props) => {
+  
 
-  const [products, setProducts] = useAtom<Product[]>(productsData)
+  const [products, setProducts] = useState<Product[] | null>(null);
+
+
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const query = `*[_type == "products"]{
+          name, category, price,
+          "slug": slug.current,
+          "imageUrl": image.asset->url,
+          productDescription
+        }`;
+        const fetchedProduct: Product[] = await client.fetch(query);
+        setProducts(fetchedProduct);
+
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+
+
+  if (!products) {
+    return <div className="flex flex-col gap-4 items-center justify-center h-[80vh]">
+      <p className="text-2xl font-bold tracking-wider text-blue-600">Loading...</p>
+      <div className="w-32 h-32 rounded-full border-t border-blue-600 animate-spin"></div>;
+    </div>
+  }
 
 
   return (
@@ -35,8 +66,8 @@ const NewCeramic = (props: Props) => {
       </h1>
       {/* // Images Div */}
       <div className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-3 xl:gap-x-5  gap-5">
-        {products.slice(0, 4).map((product) => (
-          <Card product={product} key={product.id} />
+        {products.filter((item)=>item.category == "decoration-items").slice(0,4).map((product) => (
+          <Card product={product} key={product.slug} />
         ))}
 
         {/* visible only medium screen  */}

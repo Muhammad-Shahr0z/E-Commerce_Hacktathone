@@ -12,12 +12,12 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@/app/ui/sheet";
 
 import { useAtom } from "jotai";
 import { addToCart } from "../addToCart";
 import Navbar from "./Navbar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import SignInButtonComponent from "./LoginButton";
 import { inputValueAtom } from "../store";
@@ -147,7 +147,7 @@ console.log(inputValue);
                           About Us
                         </Link>
                         <Link
-                          href="/#ceramic"
+                          href="/ceramic"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
                           Ceramics

@@ -6,6 +6,16 @@ import CartComponent from "../components/CartComponent";
 import { addToCart } from "../addToCart";
 import { MdLocalGroceryStore } from "react-icons/md";
 
+
+interface Product {
+  category: string;
+  imageUrl: string;
+  price: number;
+  slug: string;
+  name: string;
+  productDescription: string;
+}
+
 const CartPage = () => {
   const [addCart] = useAtom(addToCart);
 
@@ -54,7 +64,7 @@ const CartPage = () => {
                 </tr>
               ) : (
                 addCart.map((item) => (
-                  <CartComponent item={item} key={item.id} cart={item.Quantity} />
+                  <CartComponent item={item} key={item.slug} cart={item.Quantity} />
                 ))
               )}
             </tbody>
