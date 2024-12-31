@@ -73,7 +73,7 @@ const CheckoutPage = () => {
                 </tr>
               ) : (
                 addCart.map((item) => (
-                  <tr key={item.id}>
+                  <tr key={item.slug}>
                     <td className="py-2 px-2 sm:py-4 sm:px-4">{item.name}</td>
                     <td className="py-2 px-2 sm:py-4 sm:px-4">${item.price}</td>
                     <td className="py-2 px-2 sm:py-4 sm:px-4 text-center">{item.Quantity}</td>
