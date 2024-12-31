@@ -14,6 +14,7 @@ const isPublicRoute = createRouteMatcher([
   '/tableware',
   '/chairs',
   '/Tables',
+  '/ceramic'
 
 ])
 
