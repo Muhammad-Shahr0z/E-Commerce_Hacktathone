@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Footer from "./components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
-import { usePathname } from "next/navigation";
 import {ConditionalHeader , ConditionalFooter} from "./components/conditionalLayout";
 
-
-const clerkFrontendApi = process.env.NEXT_PUBLIC_CLERK_FRONTEND_API!; // Use the environment variable
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
