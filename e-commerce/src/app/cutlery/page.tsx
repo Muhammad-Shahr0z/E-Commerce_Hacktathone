@@ -17,6 +17,7 @@ interface Product {
 export default function TablesPage() {
 
 const [products, setProducts] = useState<Product[] | null>(null)
+
 useEffect(() => {
   async function fetchData() {
     const query  = `*[_type == "products"]{
@@ -29,7 +30,7 @@ useEffect(() => {
     setProducts(products)
   }
   fetchData()
-}, [])
+},[])
 
 
 if(!products){
