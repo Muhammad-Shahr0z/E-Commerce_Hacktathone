@@ -2,8 +2,7 @@ import { client } from "@/sanity/lib/client";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-    // Sanity se data fetch karo
-    const fetchResponse = await client.fetch(`*[_type == "products"]{
+    const Products = await client.fetch(`*[_type == "products"]{
         name,
         category,
         price,
@@ -12,11 +11,11 @@ export async function GET() {
     }`);
 
    
-    const responseWithName = {
+    const response = {
         createdBy: "Muhammad Shahroz", 
-        data: fetchResponse,         
+        data: Products,         
     };
 
     // Response return karo
-    return NextResponse.json(responseWithName);
+    return NextResponse.json(response);
 }
