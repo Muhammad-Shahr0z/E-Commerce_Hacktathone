@@ -153,26 +153,26 @@ console.log(inputValue);
                           Ceramics
                         </Link>
                         <Link
-                          href="/Tables"
+                          href="/category/Tables"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
                           Tables
                         </Link>
                         <Link
-                          href="/chairs"
+                          href="/category/chairs"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
                           Chairs
                         </Link>
 
                         <Link
-                          href="/tableware"
+                          href="/category/tableware"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
                           Tableware
                         </Link>
                         <Link
-                          href="/cutlery"
+                          href="/category/cutlery"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
                           Cutlery
