@@ -16,7 +16,6 @@ const isPublicRoute = createRouteMatcher([
   '/Tables',
   '/ceramic',
   '/api/(.*)'
-  '/my'
 
 ])
 
