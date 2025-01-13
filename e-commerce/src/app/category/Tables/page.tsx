@@ -1,7 +1,7 @@
 import ProductGrid from "@/app/components/ProductGrid";
 import { client } from "@/sanity/lib/client";
 
-// Re-fetch data every 1 hour (360 seconds)
+
 export const revalidate = 360; 
 
 export default async function CutleryPage() {
