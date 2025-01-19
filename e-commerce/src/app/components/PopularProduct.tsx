@@ -11,8 +11,9 @@ import { Product } from "../../../interface";
 // Import Swiper.js and its styles
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/autoplay"; // For autoplay
-import { Autoplay } from "swiper/modules";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { useEffect, useState } from "react";
 
 const PopularProduct = () => {
@@ -48,11 +49,7 @@ const PopularProduct = () => {
   }, []);
 
 
-  if(!products){
-    return <div className="flex items-center justify-center h-screen">
-      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-    </div>
-  }
+ 
 
   return (
     <main className="flex flex-col items-center justify-center gap-y-2 mt-10 px-5 md:px-10 xl:px-0">
@@ -62,8 +59,10 @@ const PopularProduct = () => {
 
       {/* Swiper Component */}
       <Swiper
-        modules={[Autoplay]} // Only autoplay module is needed
-        autoplay={{ delay: 1000 }} // Automatically switch slides every 3 seconds
+        modules={[Navigation, Pagination, Autoplay]}
+        navigation={{ prevEl: ".swiper-button-prev", nextEl: ".swiper-button-next" }}
+        pagination={{ clickable: true, el: ".swiper-pagination" }}
+        autoplay={{ delay: 1000 }}
         spaceBetween={20}
         slidesPerView={1}
         breakpoints={{
@@ -80,6 +79,13 @@ const PopularProduct = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* Custom Arrows and Pagination */}
+      <div className="swiper-navigation">
+        <div className="swiper-button-prev">Prev</div>
+        <div className="swiper-button-next">Next</div>
+      </div>
+      <div className="swiper-pagination"></div>
 
       <ViewCollectionButton />
     </main>
