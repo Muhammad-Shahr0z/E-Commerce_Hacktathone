@@ -1,10 +1,8 @@
 "use client";
 
-import Image from "next/image";
+
 import Card from "./ProductCart";
 import ViewCollectionButton from "./ViewCollectionButton";
-
-import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { Product } from "../../../interface";
 
@@ -13,7 +11,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import { useEffect, useState } from "react";
 
 const PopularProduct = () => {
@@ -48,21 +46,16 @@ const PopularProduct = () => {
     fetchProducts();
   }, []);
 
-
- 
-
   return (
     <main className="flex flex-col items-center justify-center gap-y-2 mt-10 px-5 md:px-10 xl:px-0">
       <h1 className="clashDisplay md:text-[2rem] text-[20px] font-[400px] md:self-center self-start mb-3 xl:self-start">
         Our Popular Products
       </h1>
 
-      {/* Swiper Component */}
+      {/* Swiper Component with Auto Slide Only */}
       <Swiper
-        modules={[Navigation, Pagination, Autoplay]}
-        navigation={{ prevEl: ".swiper-button-prev", nextEl: ".swiper-button-next" }}
-        pagination={{ clickable: true, el: ".swiper-pagination" }}
-        autoplay={{ delay: 1000 }}
+        modules={[Autoplay]}  // Only Autoplay module
+        autoplay={{ delay: 1000 }}  // Auto slide every 1 second
         spaceBetween={20}
         slidesPerView={1}
         breakpoints={{
@@ -79,13 +72,6 @@ const PopularProduct = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-
-      {/* Custom Arrows and Pagination */}
-      <div className="swiper-navigation">
-        <div className="swiper-button-prev">Prev</div>
-        <div className="swiper-button-next">Next</div>
-      </div>
-      <div className="swiper-pagination"></div>
 
       <ViewCollectionButton />
     </main>
