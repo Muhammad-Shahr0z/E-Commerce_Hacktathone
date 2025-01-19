@@ -3,30 +3,16 @@ import { atomWithStorage } from "jotai/utils"
 
 
 interface ProductAddToCart {
-  category: string;
+  categoryName: string;
   imageUrl: string;
   price: number;
   slug: string;
   name: string;
   Quantity: number;
   Finalprice: number;
+  id: number;
+  discount:number
 }
-
-
-
-// const initialCarts:ProductAddToCart[] = [
-//     {
-//       slug: "modern-cutlery-2",
-//       category: "cutlery",
-//       name: "The Lucky Lamp",
-//       price: 299,
-//       imageUrl: "/products/11.png",
-//       Quantity: 1,
-//       Finalprice:299
-//     },
-
-//   ]  
-  
 
 
  

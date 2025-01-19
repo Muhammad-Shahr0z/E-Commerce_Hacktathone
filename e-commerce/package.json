@@ -22,6 +22,7 @@
     "next": "^14.2.15",
     "next-sanity": "^9.8.30",
     "react": "^18",
+    "react-card-slider-component": "^1.0.9",
     "react-dom": "^18",
     "react-icons": "^5.4.0",
     "react-toastify": "^10.0.6",
@@ -29,6 +30,7 @@
     "shadcn": "^1.0.0",
     "sharp": "^0.33.5",
     "styled-components": "^6.1.13",
+    "swiper": "^11.2.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7"
   },

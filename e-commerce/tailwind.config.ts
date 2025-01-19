@@ -12,7 +12,13 @@ const config: Config = {
   		screens: {
   			xxs: {
   				max: '375px'
-  			}
+  			},
+  			smx: {
+  				max: '530px'
+  			},
+  			smn: {
+  				min: '531px'
+  			},
   		},
   		colors: {
   			background: 'hsl(var(--background))',

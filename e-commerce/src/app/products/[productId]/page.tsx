@@ -3,30 +3,27 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Features from "../../components/SectionOne";
-import NewCeramic from "../../components/NewCeramic";
+import dynamic from "next/dynamic"; // Import dynamic for server component
 import { useAtom } from "jotai";
 import { addToCart } from "@/app/addToCart";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { client } from "@/sanity/lib/client";
+import { Product } from "../../../../interface";
 
-interface Product {
-  category: string;
-  imageUrl: string;
-  price: number;
-  slug: string;
-  name: string;
-  productDescription: string;
-}
+// Dynamically import the server component
+const NewCeramic = dynamic(() => import("../../components/NewCeramic"),{ ssr: false });
 
 interface ProductAddToCart {
-  category: string;
+  categoryName: string;
   imageUrl: string;
   price: number;
   slug: string;
   name: string;
   Quantity: number;
   Finalprice: number;
+  id: number;
+  discount: number;
 }
 
 interface Params {
@@ -34,7 +31,7 @@ interface Params {
 }
 
 const ProductListing = ({ params }: { params: Params }) => {
-  const ParamsId: string = params.productId;
+  const ParamsId: number = eval(params.productId);
 
   const [SingleProduct, setSingleProduct] = useState<Product | null>(null);
   const [count, setCount] = useState<number>(1);
@@ -44,29 +41,39 @@ const ProductListing = ({ params }: { params: Params }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const query = `*[_type == "products" && slug.current == "${ParamsId}"][0]{
-          name, category, price,
+        const query = `*[_type == "product" && id == ${ParamsId}][0]{
+          name,
+          tags,
+          price,
+          stock,
+          dimensions,
+          id,
+          description,
+          discount,
+          originalPrice,
+          "categoryName": category->name,
           "slug": slug.current,
           "imageUrl": image.asset->url,
-          productDescription
+           rating 
         }`;
         const fetchedProduct: Product = await client.fetch(query);
         setSingleProduct(fetchedProduct);
-        setPrice(fetchedProduct.price);
+        setPrice(Math.round(fetchedProduct.originalPrice * (1 - fetchedProduct.discount / 100)));
       } catch (error) {
         console.error("Error fetching product:", error);
       }
     };
 
     fetchProducts();
-  }, [ParamsId]);
+  }, [ParamsId, setPrice]);
 
   if (!SingleProduct) {
-
-    return  <div className="flex flex-col gap-4 items-center justify-center h-[80vh]">
-      <p className="text-2xl font-bold tracking-wider text-blue-600">Loading...</p>
-      <div className="w-32 h-32 rounded-full border-t border-blue-600 animate-spin"></div>;
-    </div>
+    return (
+      <div className="flex flex-col gap-4 items-center justify-center h-[80vh]">
+        <p className="text-2xl font-bold tracking-wider text-blue-600">Loading...</p>
+        <div className="w-32 h-32 rounded-full border-t border-blue-600 animate-spin"></div>;
+      </div>
+    );
   }
 
   const updatedObject: ProductAddToCart = {
@@ -89,7 +96,10 @@ const ProductListing = ({ params }: { params: Params }) => {
       return;
     }
     setCount((prevCount) => prevCount + 1);
-    setPrice((prevPrice) => prevPrice + SingleProduct.price);
+    setPrice(
+      (prevPrice) =>
+        prevPrice + Math.round(SingleProduct.originalPrice * (1 - SingleProduct.discount / 100))
+    );
   };
 
   const handleCountDecrement = () => {
@@ -97,11 +107,14 @@ const ProductListing = ({ params }: { params: Params }) => {
       return;
     }
     setCount((prevCount) => prevCount - 1);
-    setPrice((prevPrice) => prevPrice - SingleProduct.price);
+    setPrice(
+      (prevPrice) =>
+        prevPrice - Math.round(SingleProduct.originalPrice * (1 - SingleProduct.discount / 100))
+    );
   };
 
   const handleAddToCart = () => {
-    if (addCart.some((product) => product.slug === SingleProduct.slug)) {
+    if (addCart.some((product) => product.id === SingleProduct.id)) {
       toast.warn("This item is already in your cart!", {
         position: "top-right",
         autoClose: 5000,
@@ -146,15 +159,18 @@ const ProductListing = ({ params }: { params: Params }) => {
             <div className="w-full md:w-1/2 lg:px-8 py-6 flex items-center justify-center">
               <div className="w-full">
                 <div>
-                  <p className="text-xl md:text-2xl font-semibold">
-                    {SingleProduct.name}
-                  </p>
-                  <p className="py-2 text-lg md:text-xl">${price}</p>
+                  <p className="text-xl md:text-2xl font-semibold">{SingleProduct.name}</p>
+                  <p className="py-2 text-lg md:text-xl font-bold">€{price}</p>
+                  {SingleProduct.discount > 4 && (
+                    <p className="text-red-500 text-md line-through">
+                      €{SingleProduct.originalPrice}
+                    </p>
+                  )}
                 </div>
                 <div className="text-[#505977] text-sm md:text-base">
                   <h1 className="font-semibold">Description</h1>
                   <div className="my-4">
-                    <p>{SingleProduct.productDescription}</p>
+                    <p>{SingleProduct.description}</p>
                   </div>
                   <div className="ml-4">
                     <ul className="list-disc space-y-1">
@@ -168,15 +184,15 @@ const ProductListing = ({ params }: { params: Params }) => {
                     <div className="flex gap-8 md:gap-20 text-sm md:text-base mt-2">
                       <div>
                         <h1>Height</h1>
-                        <p>110cm</p>
+                        <p>{SingleProduct.dimensions.height}cm</p>
                       </div>
                       <div>
                         <h1>Width</h1>
-                        <p>75cm</p>
+                        <p>{SingleProduct.dimensions.width}cm</p>
                       </div>
                       <div>
                         <h1>Depth</h1>
-                        <p>50cm</p>
+                        <p>{SingleProduct.dimensions.depth}cm</p>
                       </div>
                     </div>
                   </div>
@@ -212,7 +228,7 @@ const ProductListing = ({ params }: { params: Params }) => {
           </div>
         </div>
 
-        <NewCeramic key={468} Heading="You might also like" />
+        <NewCeramic key={468} Heading="You might also like" /> {/* Dynamically loaded */}
 
         <Features />
 

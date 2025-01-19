@@ -1,13 +1,5 @@
 import { atom } from "jotai";
-interface Product {
-  category: string;
-  imageUrl: string;
-  price: number;
-  slug: string;
-  name: string;
-  productDescription: string;
-}
-
+import { Product } from "../../interface";
 
 
 export const productsData = atom<Product[]>([]);

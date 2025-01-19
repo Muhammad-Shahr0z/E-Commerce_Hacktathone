@@ -3,23 +3,20 @@
 import { FaPlus, FaMinus } from "react-icons/fa";
 import Image from "next/image";
 import { useAtom } from "jotai";
-import { addToCart } from "../addToCart";
 import { MdDelete } from "react-icons/md";
+import { addToCart } from "../addToCart";
 
 interface Item {
-  category: string;
+  categoryName: string;
   imageUrl: string;
   price: number;
   slug: string;
   name: string;
   Quantity: number;
-  Finalprice:number
+  Finalprice:number;
+  discount:number;
+
 }
-
-
-
-
-
 
 
 interface ItemProps {
@@ -27,8 +24,26 @@ interface ItemProps {
   cart: number;
 }
 
-const CartComponent = (props: ItemProps) => {
-  const [addCart, setAddToCart] = useAtom(addToCart);
+interface ProductAddToCart {
+  categoryName: string;
+  imageUrl: string;
+  price: number;
+  slug: string;
+  name: string;
+  Quantity: number;
+  Finalprice: number;
+  id: number;
+  discount:number
+}
+
+
+const CartComponent = (props:ItemProps) => {
+
+
+
+
+ const [addCart, setAddToCart] = useAtom<ProductAddToCart[]>(addToCart);
+
 
   const handleDecrement = (id:String) => {
     setAddToCart((prevCart) =>
@@ -69,7 +84,7 @@ const CartComponent = (props: ItemProps) => {
       {/* Price Column */}
       <td className="py-2 px-1 sm:py-4 sm:px-4 text-center text-xs sm:text-base">
         <span className="inline-block min-w-[60px]">
-          ${props.item.price * props.item.Quantity}
+        €{Math.round(props.item.price * (1 - props.item.discount / 100) * props.item.Quantity)}
         </span>
       </td>
 

@@ -7,15 +7,6 @@ import { addToCart } from "../addToCart";
 import { MdLocalGroceryStore } from "react-icons/md";
 
 
-interface Product {
-  category: string;
-  imageUrl: string;
-  price: number;
-  slug: string;
-  name: string;
-  productDescription: string;
-}
-
 const CartPage = () => {
   const [addCart] = useAtom(addToCart);
 
@@ -24,7 +15,13 @@ const CartPage = () => {
     totalPrice: item.Quantity * item.price,
   }));
 
-  const totalAmount = updatedCart.reduce((acc, item) => acc + item.totalPrice, 0);
+  const totalAmount = updatedCart.reduce(
+    (acc, item) =>
+      acc + Math.round(item.price * (1 - item.discount / 100) * item.Quantity),
+    0
+  );
+  
+  
 
   const EmptyCart = "Your Cart Is Empty";
 
@@ -64,7 +61,7 @@ const CartPage = () => {
                 </tr>
               ) : (
                 addCart.map((item) => (
-                  <CartComponent item={item} key={item.slug} cart={item.Quantity} />
+                  <CartComponent item={item} key={item.id} cart={item.Quantity} />
                 ))
               )}
             </tbody>
@@ -78,7 +75,7 @@ const CartPage = () => {
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span>Subtotal:</span>
-              <span>${totalAmount}</span>
+              <span>€{totalAmount}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span>Shipping:</span>
@@ -86,7 +83,7 @@ const CartPage = () => {
             </div>
             <div className="flex justify-between text-lg font-medium">
               <span>Total:</span>
-              <span>${totalAmount}</span>
+              <span>€{totalAmount}</span>
             </div>
           </div>
 

@@ -1,119 +1,53 @@
-"use client"
-
-import Image from "next/image";
-import Card from "./Card";
-import { useEffect, useState } from "react";
+import Card from "./ProductCart";
 import { client } from "@/sanity/lib/client";
-
-interface Product {
-  category: string;
-  imageUrl: string;
-  price: number;
-  slug: string;
-  name: string;
-  productDescription: string;
-}
-
+import { Product } from "../../../interface";
 
 interface Props {
   Heading: string;
 }
 
-const NewCeramic = (props: Props) => {
-  
+const NewCeramic = async (props:Props) => {
+  try {
+    const query = `*[_type == "product" && category->name == 'decoration-items']{
+      name,
+      tags,
+      price,
+      stock,
+      dimensions,
+      id,
+      description,
+      discount,
+      originalPrice,
+      "categoryName": category->name,
+      "slug": slug.current,
+      "imageUrl": image.asset->url,
+      rating 
+    }`;
 
-  const [products, setProducts] = useState<Product[] | null>(null);
+    const products: Product[] = await client.fetch(query);
 
-
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const query = `*[_type == "products"]{
-          name, category, price,
-          "slug": slug.current,
-          "imageUrl": image.asset->url,
-          productDescription
-        }`;
-        const fetchedProduct: Product[] = await client.fetch(query);
-        setProducts(fetchedProduct);
-
-      } catch (error) {
-        console.error("Error fetching product:", error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-
-
-  if (!products) {
-    return <div className="flex flex-col gap-4 items-center justify-center h-[80vh]">
-      <p className="text-2xl font-bold tracking-wider text-blue-600">Loading...</p>
-      <div className="w-32 h-32 rounded-full border-t border-blue-600 animate-spin"></div>;
-    </div>
-  }
-
-
-  return (
-    <main
-      className="flex flex-col items-center justify-center gap-y-2 px-5 md:px-0 h-fit xl:px-0"
-      id="ceramic"
-    >
-      <h1 className="clashDisplay md:text-[2rem] text-[20px]  font-[400px] self-start md:self-center xl:self-start mb-3 md:mt-10 lg:mt-0">
-        {props.Heading}
-      </h1>
-      {/* // Images Div */}
-      <div className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-3 xl:gap-x-5  gap-5">
-        {products.filter((item)=>item.category == "decoration-items").slice(0,4).map((product) => (
-          <Card product={product} key={product.slug} />
-        ))}
-
-        {/* visible only medium screen  */}
-        {/* card 05 */}
-
-        <div className="xl:w-[305px] w-full lg:w-[310px]  md:w-[220px]  h-fit xl:h-[462px] bg-white gap-[24px] xl:hidden flex-col hidden md:flex">
-          <Image
-            src="/products/6.png"
-            height={375}
-            width={305}
-            alt="CHAIR"
-            className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
-          ></Image>
-          <div>
-            <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
-              The Lucy Lamp
-            </p>
-            <p className="satoshi sm:text-[18px] text-[14px] leading-7 text-[#2A254B]">
-              £399
-            </p>
-          </div>
+    return (
+      <main>
+        <h1 className="clashDisplay text-center ml-6 xl:ml-0 md:text-[2rem] text-[20px] sm:text-start  font-[400px] self-start md:self-center xl:self-start mb-3 md:mt-10 lg:mt-0">
+          {props.Heading}
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 px-4 sm:px-6 md:px-8">
+          {products.slice(0, 4).map((product: Product) => (
+            <Card key={product.id} product={product} />
+          ))}
         </div>
-
-        {/* visible only medium screen  */}
-        {/* card 06 */}
-
-        <div className="xl:w-[305px] w-full lg:w-[310px]  md:w-[220px]  bg-white gap-[24px] xl:hidden flex-col hidden md:flex">
-          <Image
-            src="/products/8.png"
-            height={375}
-            width={305}
-            alt="CHAIR"
-            className="md:w-auto h-auto transition-transform duration-300 ease-in-out hover:scale-95"
-          ></Image>
-          <div>
-            <p className="clashDisplay sm:text-[20px] leading-7 text-[#2A254B] text-[16px]">
-              The Lucy Lamp
-            </p>
-            <p className="satoshi sm:text-[18px] text-[14px] leading-7 text-[#2A254B]">
-              £399
-            </p>
-          </div>
-        </div>
+      </main>
+    );
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-red-500 text-lg font-semibold">
+          Error fetching products. Please try again later.
+        </p>
       </div>
-    </main>
-  );
+    );
+  }
 };
 
 export default NewCeramic;
