@@ -10,9 +10,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { client } from "@/sanity/lib/client";
 import { Product } from "../../../../interface";
-
-// Dynamically import the server component
-const NewCeramic = dynamic(() => import("../../components/NewCeramic"),{ ssr: false });
+import NewCeramic from "@/app/components/NewCeramic";
 
 interface ProductAddToCart {
   categoryName: string;
@@ -65,7 +63,7 @@ const ProductListing = ({ params }: { params: Params }) => {
     };
 
     fetchProducts();
-  }, [ParamsId, setPrice]);
+  },[ParamsId]);
 
   if (!SingleProduct) {
     return (
@@ -233,8 +231,7 @@ const ProductListing = ({ params }: { params: Params }) => {
           </div>
         </div>
 
-        <NewCeramic key={468} Heading="You might also like" /> {/* Dynamically loaded */}
-
+        <NewCeramic key={468} Heading="You might also like" />
         <Features />
 
         <ToastContainer />
