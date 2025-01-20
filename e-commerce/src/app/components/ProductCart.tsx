@@ -4,8 +4,6 @@ import { Product } from "../../../interface";
 
 const ProductCart = ({ product }: { product: Product }) => {
 
-
-
 if(!product){
 return <div>Product not found</div>;
 }
@@ -55,7 +53,7 @@ return <div>Product not found</div>;
               ))}
             </div>
           )}
-          {product.discount > 4 && (
+          {product.discount > 0 && (
             <div className="absolute top-2 right-2 space-y-1">
               <span className="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-lg shadow-md">
                 -{product.discount}% off
@@ -66,7 +64,7 @@ return <div>Product not found</div>;
       </Link>
       <div className="p-4">
         <h2 className="text-xl font-semibold text-gray-800">{product.name}</h2>
-        {product.discount > 4 ? (
+        {product.discount > 0 ? (
           <p className="text-gray-800 text-lg font-bold">
             €{Math.round(product.originalPrice * (1 - product.discount / 100))}
           </p>
@@ -74,7 +72,7 @@ return <div>Product not found</div>;
           <span className="opacity-0">No Discount</span>
         )}
 
-        {product.discount > 4 ? (
+        {product.discount > 0 ? (
           <p className="text-red-500 text-md line-through">
             €{product.originalPrice}
           </p>
@@ -109,6 +107,10 @@ return <div>Product not found</div>;
         </div>
       </div>
     </div>
+
+
+
+
   );
 };
 
