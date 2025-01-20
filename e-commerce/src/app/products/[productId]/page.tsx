@@ -80,15 +80,6 @@ const ProductListing = ({ params }: { params: Params }) => {
     );
   }
 
-    if (SingleProduct) {
-      window.scrollTo({
-        top: 100,
-        behavior:"smooth",
-      });
-    }
- 
-
-
 
   const updatedObject: ProductAddToCart = {
     ...SingleProduct,
