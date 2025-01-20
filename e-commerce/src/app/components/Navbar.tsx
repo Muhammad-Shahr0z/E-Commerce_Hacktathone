@@ -1,3 +1,4 @@
+"use client"
 
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
@@ -8,7 +9,6 @@ const Navbar = () => {
 
   useEffect(() => {
     if (user) {
-
       console.log("User Object:", user);
       console.log("User Email:", user?.emailAddresses?.[0]?.emailAddress);
     } else {

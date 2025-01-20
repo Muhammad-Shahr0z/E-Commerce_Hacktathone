@@ -5,7 +5,7 @@ import ViewCollectionButton from "../components/ViewCollectionButton";
 import { useAtom } from "jotai";
 import { filterCatogory, inputValueAtom, productsData } from "../store";
 import { client } from "@/sanity/lib/client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Product } from "../../../interface";
 import ProductCart from "@/app/components/ProductCart";
 import WidthWrapper from "../components/WidthWrapper";
@@ -14,6 +14,12 @@ export default function AllProducts() {
   const [inputValue] = useAtom(inputValueAtom);
   const [products, setProducts] = useAtom<Product[] | null>(productsData);
   const [selectedCategory] = useAtom(filterCatogory);
+  const [isClient, setIsClient] = useState(false); // To handle client-side code
+
+  useEffect(() => {
+    // This ensures that window object is available only on client-side
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,20 +45,22 @@ export default function AllProducts() {
     fetchProducts();
   }, []);
 
-
-    if (products) {
-      // Scroll to 200px from the top after products are loaded
-      window.scrollTo({
-        top: 200,
-        behavior: "smooth",
-      });
-    }else{
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+  useEffect(() => {
+    if (isClient) {
+      if (products) {
+        // Scroll to 200px from the top after products are loaded
+        window.scrollTo({
+          top: 200,
+          behavior: "smooth",
+        });
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
     }
-
+  }, [isClient, products]);
 
   if (products == null) {
     return (
@@ -77,7 +85,7 @@ export default function AllProducts() {
     const hasResults = filteredProducts.length > 0;
 
     return(
-        <WidthWrapper>
+      <WidthWrapper>
         <FilterBar />
         <div className="px-4 py-8 flex flex-col">
           <h2 className="text-2xl self-start font-semibold my-5">
@@ -132,13 +140,12 @@ export default function AllProducts() {
                   <ProductCart key={product.id} product={product} />
                 ))}
             </div>
-            </>
+          </>
         )}
       </div>
       <div className="justify-self-center">
         <ViewCollectionButton />
       </div>
-        </WidthWrapper>
-  
+    </WidthWrapper>
   );
 }
