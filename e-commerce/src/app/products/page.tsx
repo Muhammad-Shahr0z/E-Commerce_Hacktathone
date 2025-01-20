@@ -68,7 +68,7 @@ export default function AllProducts() {
         <div className="flex flex-col items-center gap-4">
           <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
           <p className="text-lg font-medium text-gray-700">
-            Please wait, Loading Products...
+            Please wait, Loading Products.....
           </p>
         </div>
       </div>
@@ -82,7 +82,7 @@ export default function AllProducts() {
 
   // agar Search kia jayega to yeh wala code run hoga nichy wala nahi hoga
   if (inputValue !== "") {
-    const hasResults = filteredProducts.length > 0;
+    const hasResults = filteredProducts.length >0;
 
     return(
       <WidthWrapper>
