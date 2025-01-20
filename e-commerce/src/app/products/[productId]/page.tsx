@@ -69,13 +69,16 @@ const ProductListing = ({ params }: { params: Params }) => {
 
   if (!SingleProduct) {
     return (
-      <div className="flex flex-col gap-4 items-center justify-center h-[80vh]">
-        <p className="text-2xl font-bold tracking-wider text-blue-600">Loading...</p>
-        <div className="w-32 h-32 rounded-full border-t border-blue-600 animate-spin"></div>;
+      <div className="flex flex-col items-center justify-center h-[80vh]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-lg font-medium text-gray-700">
+            Please wait, Loading Products...
+          </p>
+        </div>
       </div>
     );
   }
-  
 
     if (SingleProduct) {
       window.scrollTo({

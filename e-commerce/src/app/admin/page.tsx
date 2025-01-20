@@ -32,7 +32,7 @@ export default function AdminPanel() {
 
         // Calculate category-wise product count
         const counts = fetchedProducts.reduce((acc, product) => {
-          const category = product.categoryName || "Uncategorized"; // Default to "Uncategorized" if category is missing
+          const category = product.categoryName || "Uncategorized";
           acc[category] = (acc[category] || 0) + 1;
           return acc;
         }, {} as { [key: string]: number });
