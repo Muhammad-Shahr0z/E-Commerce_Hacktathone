@@ -1,8 +1,26 @@
+
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const Navbar = () => {
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user) {
+
+      console.log("User Object:", user);
+      console.log("User Email:", user?.emailAddresses?.[0]?.emailAddress);
+    } else {
+      console.log("User is undefined or not signed in.");
+    }
+  }, [user]);
+
+  // User's email for condition
+  const userEmail = user?.emailAddresses?.[0]?.emailAddress;
+
   return (
-    <nav className="sticky top-0 z-50 mb-8 w-full mt-2 bg-white  h-[66px] xl:gap-x-11 md:gap-x-8 text-[#726E8D] text-[16px] satoshi hidden md:flex justify-center items-center">
+    <nav className="sticky top-0 z-50 mb-8 w-full mt-2 bg-white h-[66px] xl:gap-x-11 md:gap-x-8 text-[#726E8D] text-[16px] satoshi hidden md:flex justify-center items-center">
       <Link
         href="/"
         className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
@@ -39,7 +57,6 @@ const Navbar = () => {
       >
         Chairs
       </Link>
-
       <Link
         href="/category/tableware"
         className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
@@ -52,6 +69,14 @@ const Navbar = () => {
       >
         Cutlery
       </Link>
+      {userEmail ===  process.env.NEXT_PUBLIC_EMAIL_ADDRESS && (
+        <Link
+          href="/admin"
+          className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
+        >
+          Admin Panel
+        </Link>
+      )}
     </nav>
   );
 };

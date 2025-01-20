@@ -75,6 +75,17 @@ const ProductListing = ({ params }: { params: Params }) => {
       </div>
     );
   }
+  
+
+    if (SingleProduct) {
+      window.scrollTo({
+        top: 100,
+        behavior:"smooth",
+      });
+    }
+ 
+
+
 
   const updatedObject: ProductAddToCart = {
     ...SingleProduct,
