@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
 import { Product } from "../../../interface";
 
+
 export default function AdminPanel() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categoryCounts, setCategoryCounts] = useState<{ [key: string]: number }>({});
@@ -47,6 +48,9 @@ export default function AdminPanel() {
   }, []);
 
   return (
+
+
+
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-semibold mb-4">Admin Panel</h1>
 
