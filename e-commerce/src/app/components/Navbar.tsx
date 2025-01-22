@@ -69,14 +69,14 @@ const Navbar = () => {
       >
         Cutlery
       </Link>
-      {userEmail ===  process.env.NEXT_PUBLIC_EMAIL_ADDRESS && (
+      {/* {userEmail ===  process.env.NEXT_PUBLIC_EMAIL_ADDRESS && ( */}
         <Link
           href="/admin-login"
           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
         >
           Admin Panel
         </Link>
-      )}
+      {/* )} */}
     </nav>
   );
 };
