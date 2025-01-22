@@ -65,7 +65,7 @@ export default function AdminPanel() {
       <aside
         className={`${
           sidebarOpen ? "block" : "hidden"
-        } md:block w-64 bg-gray-800 text-white flex flex-col p-4 fixed top-0 left-0 h-full z-10`}
+        } md:block w-64 bg-gray-800 text-white flex flex-col p-4 fixed top-0 left-0 h-full z-20`}
       >
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>
