@@ -7,6 +7,7 @@ import { addToCart } from "../addToCart";
 import { MdLocalGroceryStore } from "react-icons/md";
 
 
+
 const CartPage = () => {
   const [addCart] = useAtom(addToCart);
 
@@ -94,6 +95,7 @@ const CartPage = () => {
           </Link>
         </div>
       </div>
+ 
     </div>
   );
 };

@@ -71,7 +71,7 @@ const Navbar = () => {
       </Link>
       {userEmail ===  process.env.NEXT_PUBLIC_EMAIL_ADDRESS && (
         <Link
-          href="/admin"
+          href="/admin-login"
           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
         >
           Admin Panel

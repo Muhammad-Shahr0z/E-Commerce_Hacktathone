@@ -80,7 +80,7 @@ export default function AllProducts() {
     product.name.toLowerCase().includes(inputValue.toLowerCase())
   );
 
-  // agar Search kia jayega to yeh wala code run hoga nichy wala nahi hoga
+
   if (inputValue !== "") {
     const hasResults = filteredProducts.length >0;
 

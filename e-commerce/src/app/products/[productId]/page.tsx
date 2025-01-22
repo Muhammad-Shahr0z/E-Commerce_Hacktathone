@@ -3,7 +3,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Features from "../../components/SectionOne";
-import dynamic from "next/dynamic"; // Import dynamic for server component
 import { useAtom } from "jotai";
 import { addToCart } from "@/app/addToCart";
 import { toast, ToastContainer } from "react-toastify";
