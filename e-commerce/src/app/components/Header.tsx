@@ -177,6 +177,12 @@ console.log(inputValue);
                         >
                           Cutlery
                         </Link>
+                        <Link
+          href="/admin-login"
+          className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
+        >
+          Admin Panel
+        </Link>
 
                         <div className="md:hidden">
                           {!isSignedIn ? <SignInButtonComponent /> : null}
