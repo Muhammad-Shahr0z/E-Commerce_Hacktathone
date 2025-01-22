@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -9,17 +9,29 @@ const LoginPage = () => {
   const [password, setPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const router = useRouter();
 
+  // Check login state on component mount
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn");
+    if (loggedIn === "true") {
+      router.push("/admin"); //Direct to admin page if already logged in ///
+    }
+  }, [router]);
+
   const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+
+    // e.preventDefault();
 
     const adminEmail = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
     const adminPassword = process.env.NEXT_PUBLIC_USER_PASSWORD;
 
     if (email === adminEmail && password === adminPassword) {
       setMessage("Login successful");
-      router.push("/admin");
+      localStorage.setItem("isLoggedIn", "true"); // Save login state
+      setIsLoggedIn(true);
+      router.push("/admin"); // Navigate to admin page
     } else {
       if (email !== adminEmail) {
         setMessage("Invalid email address");

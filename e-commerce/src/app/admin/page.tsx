@@ -3,11 +3,16 @@
 import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
 import { Product } from "../../../interface";
-import { FaBox, FaChartBar, FaList, FaUser } from "react-icons/fa";
+import { FaBox, FaChartBar, FaList, FaUser, FaBars, FaTimes, FaStar, FaSignOutAlt, FaHome } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Products from "./Products";
 
 export default function AdminPanel() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categoryCounts, setCategoryCounts] = useState<{ [key: string]: number }>({});
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,14 +36,13 @@ export default function AdminPanel() {
         const fetchedProducts: Product[] = await client.fetch(query);
         setProducts(fetchedProducts);
 
-        // Calculate category-wise product count
+        // Category-wise product count
         const counts = fetchedProducts.reduce((acc, product) => {
           const category = product.categoryName || "Uncategorized";
           acc[category] = (acc[category] || 0) + 1;
           return acc;
         }, {} as { [key: string]: number });
 
-        
         setCategoryCounts(counts);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -48,33 +52,72 @@ export default function AdminPanel() {
     fetchProducts();
   }, []);
 
+  // Logout Handler
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    router.push("/admin-login");
+  };
+
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="relative flex h-screen bg-gray-100">
+  
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 text-white flex flex-col p-4 fixed top-0 left-0 h-full">
-        <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+      <aside
+        className={`${
+          sidebarOpen ? "block" : "hidden"
+        } md:block w-64 bg-gray-800 text-white flex flex-col p-4 fixed top-0 left-0 h-full z-10`}
+      >
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="text-white text-2xl md:hidden"
+          >
+            <FaTimes />
+          </button>
+        </div>
         <nav className="flex flex-col gap-4">
-          <a href="#" className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded">
+          <Link href="/" className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded">
+            <FaHome /> Home
+          </Link>
+          <Link href="#" className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded">
             <FaChartBar /> Dashboard
-          </a>
-          <a href="#" className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded">
+          </Link>
+          <Link href="#" className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded">
             <FaBox /> Products
-          </a>
-          <a href="#" className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded">
+          </Link>
+          <Link href="#" className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded">
             <FaList /> Categories
-          </a>
-          <a href="#" className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded">
-            <FaUser /> Users
-          </a>
+          </Link>
+          <Link href="#" className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded">
+            <FaUser /> Customers
+          </Link>
+          <Link href="#" className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded">
+            <FaUser /> Orders
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 hover:bg-gray-700 p-2 rounded mt-auto text-red-500"
+          >
+            <FaSignOutAlt /> Logout
+          </button>
         </nav>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 ml-64 overflow-auto">
+      <main className="flex-1 p-6 md:ml-64 overflow-auto z-10">
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="md:hidden p-2 text-gray-800"
+        >
+          {sidebarOpen ? <FaTimes /> : <FaBars />}
+        </button>
+
         <h1 className="text-3xl font-semibold mb-4">Admin Panel</h1>
 
         {/* Summary Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <div className="bg-white p-4 shadow rounded flex items-center gap-4">
             <FaBox className="text-3xl text-blue-500" />
             <div>
@@ -86,38 +129,22 @@ export default function AdminPanel() {
             <div key={category} className="bg-white p-4 shadow rounded flex items-center gap-4">
               <FaList className="text-3xl text-green-500" />
               <div>
-                <h2 className="text-xl font-semibold">{category}</h2>
+                <h2 className="text-xl font-semibold">{category.toUpperCase()}</h2>
                 <p className="text-gray-500">{categoryCounts[category]} items</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Product Table Section */}
-        <div className="overflow-x-auto bg-white p-6 shadow rounded">
-          <h2 className="text-xl font-medium mb-4">Products</h2>
-          <table className="min-w-full border border-gray-300 rounded">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="p-4 text-left">Product Name</th>
-                <th className="p-4 text-left">Category</th>
-                <th className="p-4 text-left">Price</th>
-                <th className="p-4 text-left">Stock</th>
-                <th className="p-4 text-left">Rating</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product.id} className="border-b border-gray-200">
-                  <td className="p-4">{product.name}</td>
-                  <td className="p-4">{product.categoryName}</td>
-                  <td className="p-4">${product.price}</td>
-                  <td className="p-4">{product.stock}</td>
-                  <td className="p-4">{product.rating?.rate || "N/A"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {/* Product Grid Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {products.map((product) => (
+            <Products product={product} key={product.id} />
+          ))}
+             {/* Watermark */}
+      <div className="absolute inset-0 flex justify-center items-center text-blue-300 text-5xl font-bold pointer-events-none select-none z-0 opacity-50">
+     Work in Progress By - Muhammad Shahroz
+      </div>
         </div>
       </main>
     </div>
