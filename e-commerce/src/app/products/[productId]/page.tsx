@@ -11,17 +11,6 @@ import { client } from "@/sanity/lib/client";
 import { Product } from "../../../../interface";
 import NewCeramic from "@/app/components/NewCeramic";
 
-interface ProductAddToCart {
-  categoryName: string;
-  imageUrl: string;
-  price: number;
-  slug: string;
-  name: string;
-  Quantity: number;
-  Finalprice: number;
-  id: number;
-  discount: number;
-}
 
 interface Params {
   productId: string;
@@ -33,7 +22,7 @@ const ProductListing = ({ params }: { params: Params }) => {
   const [SingleProduct, setSingleProduct] = useState<Product | null>(null);
   const [count, setCount] = useState<number>(1);
   const [price, setPrice] = useState<number>(0);
-  const [addCart, setAddToCart] = useAtom<ProductAddToCart[]>(addToCart);
+  const [addCart, setAddToCart] = useAtom<Product[]>(addToCart);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -78,7 +67,7 @@ const ProductListing = ({ params }: { params: Params }) => {
   }
 
 
-  const updatedObject: ProductAddToCart = {
+  const updatedObject: Product= {
     ...SingleProduct,
     Quantity: count,
     Finalprice: price,
