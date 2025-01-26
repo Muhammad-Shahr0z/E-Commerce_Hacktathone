@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 import CartComponent from "../components/CartComponent";
 import { addToCart } from "../addToCart";
 import { MdLocalGroceryStore } from "react-icons/md";
+import CheckoutButton from "../components/CheckOutButton";
 
 
 
@@ -46,7 +47,7 @@ const CartPage = () => {
     <th className="py-4 px-2 sm:px-4 text-left">Product</th>
     <th className="py-4 px-2 sm:px-4 text-center">Price</th>
     <th className="py-4 px-2 sm:px-4 text-center">Quantity</th>
-    <th className="py-4 px-2 sm:px-4 text-center">Delete</th>
+    <th className="py-4 px-2 sm:px-4 text-center">Remove</th>
   </tr>
 </thead>
 
@@ -88,11 +89,7 @@ const CartPage = () => {
             </div>
           </div>
 
-<Link href="/checkOutPage">
-          <button disabled={addCart.length === 0}  className="bg-[#F9F9F9] text-[#2A254B] disabled:bg-gray-200 disabled:text-black hover:bg-[#2A254B] hover:text-white w-full mt-4 py-2 rounded-md">
-            Go to checkout
-          </button>
-          </Link>
+          <CheckoutButton/>
         </div>
       </div>
  
