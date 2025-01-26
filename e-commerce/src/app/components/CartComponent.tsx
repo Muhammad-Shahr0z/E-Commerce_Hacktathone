@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useAtom } from "jotai";
 import { MdDelete } from "react-icons/md";
 import { addToCart } from "../addToCart";
+import { Product } from "../../../interface";
 
 interface Item {
   categoryName: string;
@@ -24,17 +25,6 @@ interface ItemProps {
   cart: number;
 }
 
-interface ProductAddToCart {
-  categoryName: string;
-  imageUrl: string;
-  price: number;
-  slug: string;
-  name: string;
-  Quantity: number;
-  Finalprice: number;
-  id: number;
-  discount:number
-}
 
 
 const CartComponent = (props:ItemProps) => {
@@ -42,7 +32,7 @@ const CartComponent = (props:ItemProps) => {
 
 
 
- const [addCart, setAddToCart] = useAtom<ProductAddToCart[]>(addToCart);
+ const [addCart, setAddToCart] = useAtom<Product[]>(addToCart);
 
 
   const handleDecrement = (id:String) => {
