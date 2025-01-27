@@ -7,14 +7,16 @@ import { useEffect } from "react";
 const Navbar = () => {
   const { user } = useUser();
 
-  useEffect(() => {
-    if (user) {
-      console.log("User Object:", user);
-      console.log("User Email:", user?.emailAddresses?.[0]?.emailAddress);
-    } else {
-      console.log("User is undefined or not signed in.");
-    }
-  }, [user]);
+  
+// Checking if user is signed in or not
+  // useEffect(() => {
+  //   if (user) {
+  //     console.log("User Object:", user);
+  //     console.log("User Email:", user?.emailAddresses?.[0]?.emailAddress);
+  //   } else {
+  //     console.log("User is undefined or not signed in.");
+  //   }
+  // }, [user]);
 
   // User's email for condition
   const userEmail = user?.emailAddresses?.[0]?.emailAddress;
