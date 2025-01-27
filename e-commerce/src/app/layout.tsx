@@ -18,7 +18,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "E-Commerce",
+  title: "AVION T2",
   description: "E Commerce Website By Muhammad Shahroz",
 };
 
