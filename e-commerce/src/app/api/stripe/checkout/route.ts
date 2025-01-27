@@ -8,6 +8,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion:"2024-12-18.acacia"
 });
 
+
+console.log('Stripe Secret Key VERCEL SHAHROZ:', process.env.STRIPE_SECRET_KEY);
+
 export const POST = async (req: NextRequest) => {
   try {
     const cart = await req.json();
@@ -27,7 +30,7 @@ export const POST = async (req: NextRequest) => {
             name: item.name, 
             images: [item.imageUrl],
             metadata: {
-              heading: 'Product Details', // Add your heading here
+              heading: 'Product Details',
             },
           },
           unit_amount: Math.round(item.Finalprice * 100)
@@ -37,18 +40,18 @@ export const POST = async (req: NextRequest) => {
     });
 
   
-    console.log('Cart is:', cart);
-    console.log('Line Items:', lineItems);
-    console.log('Total Price:', totalPrice);
-    console.log('Total Items Quantity:', totalItemsQuantity);
+    // console.log('Cart is:', cart);
+    // console.log('Line Items:', lineItems);
+    // console.log('Total Price:', totalPrice);
+    // console.log('Total Items Quantity:', totalItemsQuantity);
 
    
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems, 
       mode: 'payment',
-      success_url: `${process.env.HOST_URL}/success`,
-      cancel_url: `${process.env.HOST_URL}/cancel`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
     });
 
    
