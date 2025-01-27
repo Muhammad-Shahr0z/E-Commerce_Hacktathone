@@ -33,7 +33,7 @@ const Header = () => {
     setIsSearchOpen(!isSearchOpen);
   };
 
-console.log(inputValue);
+// console.log(inputValue);
 
 
   return (
