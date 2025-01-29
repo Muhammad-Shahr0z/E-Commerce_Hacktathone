@@ -5,7 +5,10 @@ import { useEffect, useState } from 'react';
 import { addToCart } from '../addToCart';
 import { useAtom } from 'jotai';
 
-const CheckoutButton = () => {
+const CheckoutButton = ({disabled}:any) => {
+
+  // console.log(disabled)
+
   const [stripe, setStripe] = useState<Stripe | null>(null); // Use Stripe type directly
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [addCart , setAddToCart] = useAtom(addToCart);
@@ -59,9 +62,9 @@ const CheckoutButton = () => {
 
   return (
     <button
-      className={`${addCart.length>0 ? "bg-blue-500 hover:bg-blue-600":"bg-gray-500"} w-full text-white p-2 rounded mt-4`}
+      className={`${!disabled?"bg-blue-500 hover:bg-blue-600":"bg-gray-500 cursor-not-allowed"} w-full text-white p-2 rounded mt-4`}
       onClick={handleCheckout}
-      disabled={!stripe || isLoading || addCart.length === 0}
+      disabled={!stripe || isLoading || addCart.length === 0 || disabled}
 
     >
       {isLoading ? 'Loading...' : 'Checkout'}

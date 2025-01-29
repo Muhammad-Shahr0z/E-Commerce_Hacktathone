@@ -21,11 +21,18 @@ export default clerkMiddleware(async (auth, request) => {
   }
 
   // Custom logic to ensure `checkOutPage` is accessed only via `cart` page
-  if (url.pathname === '/checkOutPage') {
+  if (url.pathname === '/billing-summary') {
     const referrer = request.headers.get('referer');
     if (!referrer || !referrer.includes('/carts')) {
       // Redirect to cart page if not coming from there
       return Response.redirect(new URL('/carts', request.url));
+    }
+  }
+  if (url.pathname === '/ordersuccess' ) {
+    const referrer = request.headers.get('referer');
+    if (!referrer || !referrer.includes('/billing-summary')) {
+      // Redirect to cart page if not coming from there
+      return Response.redirect(new URL('/billing-summary', request.url));
     }
   }
 

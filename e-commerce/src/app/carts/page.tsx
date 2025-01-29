@@ -89,7 +89,22 @@ const CartPage = () => {
             </div>
           </div>
 
-          <CheckoutButton/>
+          <button
+  disabled={addCart.length === 0}
+  onClick={(e) => {
+    if (addCart.length === 0) {
+      e.preventDefault(); // Prevent link action if cart is empty
+    }
+  }}
+  className={`text-md w-full rounded-sm mt-4 px-4 py-2 font-bold ${
+    addCart.length === 0
+      ? "bg-gray-400 text-gray-700"
+      : "bg-blue-500 text-white hover:bg-blue-900"
+  }`}
+>
+  <Link href={addCart.length > 0 ? "/billing-summary" : "#"}>Place Order</Link>
+</button>
+
         </div>
       </div>
  
