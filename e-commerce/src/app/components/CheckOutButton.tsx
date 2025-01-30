@@ -4,14 +4,18 @@ import { loadStripe, Stripe } from '@stripe/stripe-js'; // Import Stripe type
 import { useEffect, useState } from 'react';
 import { addToCart } from '../addToCart';
 import { useAtom } from 'jotai';
+import { customerFormDetails, isStripeLoading } from '../store';
+import { BillingDetails } from '../../../interface';
+
 
 const CheckoutButton = ({disabled}:any) => {
 
   // console.log(disabled)
 
   const [stripe, setStripe] = useState<Stripe | null>(null); // Use Stripe type directly
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useAtom<boolean>(isStripeLoading);
   const [addCart , setAddToCart] = useAtom(addToCart);
+   const [billingDetails, setBillingDetails] = useAtom<BillingDetails>(customerFormDetails);
 
   useEffect(() => {
     // Load Stripe.js with your publishable key
@@ -35,7 +39,7 @@ const CheckoutButton = ({disabled}:any) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(addCart),
+      body: JSON.stringify({addCart, billingDetails}),
     });
 
     if (!res.ok) {
