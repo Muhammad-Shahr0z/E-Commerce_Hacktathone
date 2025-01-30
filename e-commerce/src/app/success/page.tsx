@@ -15,14 +15,15 @@ const OrderSuccessPage = () => {
     const [billingDetails] = useAtom<BillingDetails>(customerFormDetails);
   const router = useRouter();
 
-   
-   
   
   useEffect(()=>{
-    const totalPriceCalc = addCart.reduce((total: number, product: Product) => {
-      return total + product.Finalprice * product.Quantity;
-    }, 0)
-    saveOrderToSanity(billingDetails, addCart, totalPriceCalc);
+const SanatyUpload = async ()=>{
+  const totalPriceCalc = addCart.reduce((total: number, product: Product) => {
+    return total + product.Finalprice * product.Quantity;
+  }, 0)
+ await saveOrderToSanity(billingDetails, addCart, totalPriceCalc);
+}
+SanatyUpload()
   },[])
 
 
