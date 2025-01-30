@@ -5,10 +5,29 @@ import { customerFormDetails } from "../store";
 import { motion } from "framer-motion";
 import { BsCheckCircle } from "react-icons/bs";
 import { useRouter } from "next/navigation";
+import { saveOrderToSanity } from "@/utils/page";
+import { addToCart } from "../addToCart";
+import { BillingDetails, Product } from "../../../interface";
+import { useEffect } from "react";
 
 const OrderSuccessPage = () => {
-  const [billingDetails] = useAtom(customerFormDetails);
+    const [addCart] = useAtom(addToCart);
+    const [billingDetails] = useAtom<BillingDetails>(customerFormDetails);
   const router = useRouter();
+
+   
+   
+  
+  useEffect(()=>{
+    const totalPriceCalc = addCart.reduce((total: number, product: Product) => {
+      return total + product.Finalprice * product.Quantity;
+    }, 0)
+    saveOrderToSanity(billingDetails, addCart, totalPriceCalc);
+  },[])
+
+
+
+
 
   const handleContinueShopping = () => {
     router.push("/"); // Redirect to homepage

@@ -52,6 +52,7 @@ const CheckoutButton = ({disabled}:any) => {
 
     if (sessionId) {
       
+      
       const { error } = await stripe.redirectToCheckout({ sessionId });
 
       if (error) {

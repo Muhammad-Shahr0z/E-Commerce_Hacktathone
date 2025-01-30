@@ -67,13 +67,14 @@ export const POST = async (req: NextRequest) => {
       cancel_url: `${baseUrl}/cancel`,
     });
 
-    // Save the order to Sanity
-    try {
-      await saveOrderToSanity(billingDetails, addCart, totalPrice / 100);
-    } catch (error) {
-      console.error("Error saving order to Sanity:", error);
-      return NextResponse.json({ error: "Failed to save order" }, { status: 500 });
-    }
+ 
+    // // Save the order to Sanity
+    // try {
+    //   await saveOrderToSanity(billingDetails, addCart, totalPrice / 100);
+    // } catch (error) {
+    //   console.error("Error saving order to Sanity:", error);
+    //   return NextResponse.json({ error: "Failed to save order" }, { status: 500 });
+    // }
 
     // Return session ID
     return NextResponse.json({ sessionId: session.id });
