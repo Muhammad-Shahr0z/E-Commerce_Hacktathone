@@ -28,13 +28,20 @@ export default clerkMiddleware(async (auth, request) => {
     }
   }
   // Custom logic to ensure `ordersuccess` is accessed only via `billing-summary` page
-  if (url.pathname === '/success' ) {
+  if (url.pathname === '/success') {
     const referrer = request.headers.get('referer');
-    if (!referrer || !referrer.includes('/billing-summary')|| !referrer.includes('/stripe.com')) {
-      // Redirect to billing-summary  page if not coming from there
-      return Response.redirect(new URL('/billing-summary', request.url));
+  
+    if (!referrer) {
+      // Redirect to carts page if no referrer is available
+      return Response.redirect(new URL('/carts', request.url));
+    }
+  
+    // Check if the referrer is either from billing-summary or stripe.com
+    if (!referrer.includes('/billing-summary') && !referrer.includes('stripe.com')) {
+      return Response.redirect(new URL('/carts', request.url));
     }
   }
+  
   if (url.pathname === '/cancel' ) {
     const referrer = request.headers.get('referer');
     if (!referrer || !referrer.includes('stripe.com')) {
