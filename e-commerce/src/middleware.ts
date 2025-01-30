@@ -30,7 +30,7 @@ export default clerkMiddleware(async (auth, request) => {
   // Custom logic to ensure `ordersuccess` is accessed only via `billing-summary` page
   if (url.pathname === '/success' ) {
     const referrer = request.headers.get('referer');
-    if (!referrer || !referrer.includes('/billing-summary')) {
+    if (!referrer || !referrer.includes('/billing-summary')|| !referrer.includes('/stripe.com')) {
       // Redirect to billing-summary  page if not coming from there
       return Response.redirect(new URL('/billing-summary', request.url));
     }
