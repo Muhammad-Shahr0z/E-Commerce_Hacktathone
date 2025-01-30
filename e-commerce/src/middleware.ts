@@ -15,12 +15,11 @@ const isPublicRoute = createRouteMatcher([
 export default clerkMiddleware(async (auth, request) => {
   const url = new URL(request.url);
 
-  // Check if the route is public
   if (!isPublicRoute(request)) {
     await auth.protect();
   }
 
-  // Custom logic to ensure `checkOutPage` is accessed only via `cart` page
+  // Custom logic to ensure `billing-summary` is accessed only via `cart` page
   if (url.pathname === '/billing-summary') {
     const referrer = request.headers.get('referer');
     if (!referrer || !referrer.includes('/carts')) {
@@ -28,10 +27,11 @@ export default clerkMiddleware(async (auth, request) => {
       return Response.redirect(new URL('/carts', request.url));
     }
   }
+  // Custom logic to ensure `ordersuccess` is accessed only via `billing-summary` page
   if (url.pathname === '/ordersuccess' ) {
     const referrer = request.headers.get('referer');
     if (!referrer || !referrer.includes('/billing-summary')) {
-      // Redirect to cart page if not coming from there
+      // Redirect to billing-summary  page if not coming from there
       return Response.redirect(new URL('/billing-summary', request.url));
     }
   }
