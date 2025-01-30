@@ -1,37 +1,58 @@
-"use client"
+"use client";
+import { useEffect } from "react";
+import { useAtom } from "jotai";
+import { useUser } from "@clerk/nextjs";
+import { Order } from "../../../interface";
+import { customerFormDetails } from "../store";
+import { addToCart } from "../addToCart";
 
+// Utility function to call the API
+const postOrderData = async (order: Order) => {
+  try {
+    const response = await fetch('/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(order),
+    });
+    const data = await response.json();
+    console.log('Order response:', data);
+  } catch (error) {
+    console.error('Error posting order:', error);
+  }
+};
 
-import { useAtom } from 'jotai';
-import { CheckCircleIcon } from 'lucide-react';
-import Link from 'next/link';
-import { useEffect } from 'react';
-import { addToCart } from '../addToCart';
+const OrderSuccessPage = () => {
+  const [cartItems] = useAtom(addToCart); // Get cart items from addToCart atom
+  const [billingDetails] = useAtom(customerFormDetails); // Get billing details from customerFormDetails atom
+  const { user, isLoaded, isSignedIn } = useUser();
 
-const SuccessPage = () => {
+  useEffect(() => {
+    if (billingDetails && cartItems.length > 0) {
+      // Calculate the total amount from the cart items
+      const totalAmount = cartItems.reduce((total, item) => total + item.Finalprice * item.Quantity, 0);
 
- const [addCart , setAddToCart] = useAtom(addToCart);
-useEffect(()=>{
-setAddToCart([])
-},[])
+      // Create the order object based on existing data
+      const order: Order = {
+        customerDetails: billingDetails,
+        cartItems: cartItems,
+        totalAmount: totalAmount,
+      };
 
+      // Post the order data to the API
+      postOrderData(order);
+    }
+  }, [billingDetails, cartItems]);
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-50 p-6">
-      <div className="bg-white shadow-lg rounded-2xl p-8 text-center">
-        <CheckCircleIcon className="text-green-500 w-16 h-16 mx-auto mb-4" />
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Payment Successful!</h1>
-        <p className="text-gray-600 mb-6">
-          Thank you for your purchase. Your order has been confirmed and is now being processed.
-        </p>
-        <Link
-          href="/"
-          className="inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition"
-        >
-          Continue Shopping
-        </Link>
-      </div>
+    <div>
+      <h1>Order Success</h1>
+      {isLoaded && isSignedIn && (
+        <p>Thank you, {user?.fullName}. Your order has been placed successfully.</p>
+      )}
     </div>
   );
 };
 
-export default SuccessPage;
+export default OrderSuccessPage;
