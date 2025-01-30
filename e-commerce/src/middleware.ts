@@ -28,11 +28,18 @@ export default clerkMiddleware(async (auth, request) => {
     }
   }
   // Custom logic to ensure `ordersuccess` is accessed only via `billing-summary` page
-  if (url.pathname === '/ordersuccess' ) {
+  if (url.pathname === '/success' ) {
     const referrer = request.headers.get('referer');
     if (!referrer || !referrer.includes('/billing-summary')) {
       // Redirect to billing-summary  page if not coming from there
       return Response.redirect(new URL('/billing-summary', request.url));
+    }
+  }
+  if (url.pathname === '/cancel' ) {
+    const referrer = request.headers.get('referer');
+    if (!referrer || !referrer.includes('stripe.com')) {
+      // Redirect to billing-summary  page if not coming from there
+      return Response.redirect(new URL('/carts', request.url));
     }
   }
 
