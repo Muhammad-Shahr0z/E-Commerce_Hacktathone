@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import CartComponent from "../components/CartComponent";
 import { addToCart } from "../addToCart";
 import { MdLocalGroceryStore } from "react-icons/md";
-import CheckoutButton from "../components/CheckOutButton";
+
 
 
 
