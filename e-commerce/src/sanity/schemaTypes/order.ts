@@ -50,24 +50,32 @@ export const order = defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+    // Muhammad Shahroz: Added custom orderId for each order
+    defineField({
+      name: 'orderId',
+      type: 'string',
+      title: 'Order ID',
+      validation: (Rule) => Rule.required(),
+    }),
   ],
-  // Custom title field to display customer name in the order title
+  //Muhammad Shahroz Custom title field to display customer name in the order title
   preview: {
     select: {
       customerName: 'customer.fullName', // Customer name
       items: 'items', // All order items
       status: 'status', // Order status
+      orderId: 'orderId', // Custom Order ID
     },
-    prepare({ customerName, items, status }) {
-      // Calculate total items and total quantity
+    prepare({ customerName, items, status, orderId }) {
+      //Muhammad Shahroz Calculate total items and total quantity
       const totalItems = items ? items.length : 0; // Total number of items
       const totalQuantity = items
-        ? items.reduce((sum:any, item:any) => sum + item.quantity, 0)
+        ? items.reduce((sum: any, item: any) => sum + item.quantity, 0)
         : 0; // Total quantity of all items
 
       return {
         title: customerName ? `${customerName.toUpperCase()} - ${status.toUpperCase()}` : 'No Name Available',
-        subtitle: `Items: ${totalItems} | Quantity: ${totalQuantity}`, // Show total items and quantity
+        subtitle: `Order ID: ${orderId} | Items: ${totalItems} | Quantity: ${totalQuantity}`, // MuhAmmad Shahroz Show order ID, total items and quantity
         media: BsCartCheckFill,
       };
     },
