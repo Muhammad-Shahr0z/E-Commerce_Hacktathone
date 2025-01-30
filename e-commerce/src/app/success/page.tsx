@@ -8,39 +8,50 @@ import { useRouter } from "next/navigation";
 import { saveOrderToSanity } from "@/utils/page";
 import { addToCart } from "../addToCart";
 import { BillingDetails, Product } from "../../../interface";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const OrderSuccessPage = () => {
-    const [addCart] = useAtom(addToCart);
-    const [billingDetails] = useAtom<BillingDetails>(customerFormDetails);
+  const [addCart] = useAtom(addToCart);
+  const [billingDetails] = useAtom<BillingDetails>(customerFormDetails);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
   const router = useRouter();
 
-  
   useEffect(() => {
     const SanatyUpload = async () => {
       try {
         const totalPriceCalc = addCart.reduce((total: number, product: Product) => {
           return total + product.Finalprice * product.Quantity;
         }, 0);
+
         console.log("Before calling saveOrderToSanity");
         await saveOrderToSanity(billingDetails, addCart, totalPriceCalc);
         console.log("After calling saveOrderToSanity");
       } catch (error) {
         console.error("Error uploading to Sanity:", error);
+      } finally {
+        setIsLoading(false); // End loading regardless of success or failure
       }
     };
+
+    // Call only if data exists
     if (billingDetails && addCart.length > 0) {
       SanatyUpload();
+    } else {
+      setIsLoading(false); // No data to upload
     }
   }, [addCart, billingDetails]);
-  
-
-
-
 
   const handleContinueShopping = () => {
     router.push("/"); // Redirect to homepage
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-lg font-medium text-gray-600">Processing your order...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center bg-gray-50 p-4">
