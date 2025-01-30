@@ -12,9 +12,6 @@ const token = process.env.NEXT_PUBLIC_SANITY_TOKEN
 export default defineCliConfig({ api: { projectId, dataset} })
 
 
-
-
-
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
