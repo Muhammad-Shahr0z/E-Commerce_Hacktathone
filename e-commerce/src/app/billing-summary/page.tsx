@@ -6,23 +6,21 @@ import { useAtom } from "jotai";
 import { addToCart } from "../addToCart";
 import { useState } from "react";
 import CheckOutButton from "../components/CheckOutButton";
+import { BillingDetails } from "../../../interface";
+import { customerFormDetails, isStripeLoading } from "../store";
+
+
 
 const BillingSummary = () => {
   const [addCart, setAddToCart] = useAtom(addToCart);
+  // Jotai GLobal State For Billing Details
+  const [billingDetails, setBillingDetails] = useAtom<BillingDetails>(customerFormDetails);
+  const [isLoading, setIsLoading] = useAtom<boolean>(isStripeLoading);
 
 
-  const [billingDetails, setBillingDetails] = useState({
-    fullName: "",
-    phoneNumber: "",
-    email: "",
-    addressLine1: "",
-    addressLine2: "",
-    city: "",
-    paymentMethod: "cashOnDelivery", 
-  });
 
 
-  console.log("this is billing details ",billingDetails)
+  // console.log("this is billing details update ",billingDetails)
 
   const [errors, setErrors] = useState({
     phoneNumber: false,
@@ -219,15 +217,15 @@ const BillingSummary = () => {
           {billingDetails.paymentMethod === "stripe" ? (
             <CheckOutButton disabled={!isFormValid()} />
           ):(
-            <Link href={isFormValid()?"/ordersuccess" : "#"}>
+            <Link href={isFormValid() && !isLoading ?"/success":"/billing-summary"}>
               <button
                 onClick={() => isFormValid() && setAddToCart([])}
                 className={`w-full mt-4 py-2 ${
-                  isFormValid()
+                  isFormValid() && !isLoading
                     ? "bg-green-600 hover:bg-green-700"
                     : "bg-gray-400 cursor-not-allowed"
                 } text-white font-semibold rounded-md`}
-                disabled={!isFormValid()}
+                disabled={!isFormValid() || isLoading}
               >
                 Place Order
               </button>
