@@ -16,16 +16,24 @@ const OrderSuccessPage = () => {
   const router = useRouter();
 
   
-  useEffect(()=>{
-const SanatyUpload = async ()=>{
-  const totalPriceCalc = addCart.reduce((total: number, product: Product) => {
-    return total + product.Finalprice * product.Quantity;
-  }, 0)
- await saveOrderToSanity(billingDetails, addCart, totalPriceCalc);
-}
-SanatyUpload()
-  },[])
-
+  useEffect(() => {
+    const SanatyUpload = async () => {
+      try {
+        const totalPriceCalc = addCart.reduce((total: number, product: Product) => {
+          return total + product.Finalprice * product.Quantity;
+        }, 0);
+        console.log("Before calling saveOrderToSanity");
+        await saveOrderToSanity(billingDetails, addCart, totalPriceCalc);
+        console.log("After calling saveOrderToSanity");
+      } catch (error) {
+        console.error("Error uploading to Sanity:", error);
+      }
+    };
+    if (billingDetails && addCart.length > 0) {
+      SanatyUpload();
+    }
+  }, [addCart, billingDetails]);
+  
 
 
 
