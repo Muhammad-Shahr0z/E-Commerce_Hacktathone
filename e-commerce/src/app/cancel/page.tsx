@@ -9,16 +9,16 @@ export default function CancelPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate fake loading for 2 seconds
+    // Simulate fake loading for 3 seconds
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-800 to-indigo-600">
       <motion.div
         className="w-full max-w-lg p-8 bg-white rounded-3xl shadow-xl flex flex-col items-center border border-gray-200"
         initial={{ opacity: 0, y: 100 }}
@@ -82,7 +82,7 @@ export default function CancelPage() {
               Your payment has been canceled. If this was a mistake, you can try again.
             </motion.p>
             <motion.div
-              className="flex justify-center space-x-6"
+              className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{
@@ -91,17 +91,19 @@ export default function CancelPage() {
                 ease: "easeOut",
               }}
             >
+              {/* Blue Button */}
               <motion.a
                 href="/"
-                className="bg-blue-500 text-gray-700 px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transform transition-all duration-300"
+                className="w-full sm:w-auto bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transform transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Go to Home
               </motion.a>
+              {/* Green Button */}
               <motion.a
                 href="/carts"
-                className="bg-blue-500 text-gray-700 px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transform transition-all duration-300"
+                className="w-full sm:w-auto bg-green-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-600 transform transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
