@@ -31,11 +31,15 @@ const CartComponent = (props:ItemProps) => {
 
 
 
-
+  const clicksSound = ()=>{
+    const audio = new Audio('/studio/clicks.wav');
+    audio.play();
+  }
  const [addCart, setAddToCart] = useAtom<Product[]>(addToCart);
 
 
   const handleDecrement = (id:String) => {
+    clicksSound()
     setAddToCart((prevCart) =>
       prevCart.map((item) =>
         item.slug === id && item.Quantity > 1 ? { ...item, Quantity: item.Quantity - 1 } : item
@@ -44,6 +48,7 @@ const CartComponent = (props:ItemProps) => {
   };
 
   const handleIncrement = (id:string) => {
+    clicksSound()
     setAddToCart((prevCart) =>
       prevCart.map((item) =>
         item.slug === id && item.Quantity < 10 ? { ...item, Quantity: item.Quantity + 1 } : item

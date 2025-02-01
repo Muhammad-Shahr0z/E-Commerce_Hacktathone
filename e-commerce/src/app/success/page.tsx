@@ -14,7 +14,10 @@ const OrderSuccessPage = () => {
   const router = useRouter();
 
 
-
+  const Thankyou = ()=>{
+    const audio = new Audio('/studio/thankyou.mp3');
+    audio.play();
+  }
 
 
 
@@ -23,6 +26,7 @@ const OrderSuccessPage = () => {
     const timer = setTimeout(() => {
       setAddToCart([]);
       setIsLoading(false);
+      Thankyou()
     }, 3000);
 
     return () => clearTimeout(timer);

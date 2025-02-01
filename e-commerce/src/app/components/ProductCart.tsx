@@ -1,8 +1,16 @@
+"use client"
+
 import Image from "next/image";
 import Link from "next/link";
 import { Product } from "../../../interface";
 
 const ProductCart = ({ product }: { product: Product }) => {
+
+  const clickSound = ()=>{
+    const audio = new Audio('/studio/click.wav');
+    audio.play();
+  }
+
 
 if(!product){
 return <div>Product not found</div>;
@@ -28,7 +36,7 @@ return <div>Product not found</div>;
       key={product.id}
       className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-transform transform hover:scale-105 duration-300 w-full max-w-[300px] mx-auto"
     >
-      <Link href={`/products/${product.id}`}>
+      <Link onClick={()=>clickSound()} href={`/products/${product.id}`}>
         <div className="relative w-full h-64">
           {/* Image */}
           <Image

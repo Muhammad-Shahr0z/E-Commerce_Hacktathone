@@ -21,6 +21,8 @@ export default function AllProducts() {
     setIsClient(true);
   }, []);
 
+
+
   useEffect(() => {
     const fetchProducts = async () => {
       const query = `*[_type == "product"]{

@@ -16,6 +16,9 @@ interface Params {
   productId: string;
 }
 
+
+
+
 const ProductListing = ({ params }: { params: Params }) => {
   const ParamsId: number = eval(params.productId);
 
@@ -73,6 +76,23 @@ const ProductListing = ({ params }: { params: Params }) => {
     Finalprice: price,
   };
 
+  const SuccessSound = () => {
+    const audio = new Audio("/studio/aivoice.mp3");
+    audio.play();
+  };
+  const AlreadySound = () => {
+    const audio = new Audio("/studio/cartalready.mp3");
+    audio.play();
+  };
+
+  const clicksSound = ()=>{
+    const audio = new Audio('/studio/clicks.wav');
+    audio.play();
+  }
+  
+
+
+
   const handleCountIncrement = () => {
     if (count === 10) {
       toast.warn("You Can Add Only 10 Items", {
@@ -87,6 +107,7 @@ const ProductListing = ({ params }: { params: Params }) => {
       return;
     }
     setCount((prevCount) => prevCount + 1);
+    clicksSound()
     setPrice(
       (prevPrice) =>
         prevPrice + Math.round(SingleProduct.originalPrice * (1 - SingleProduct.discount / 100))
@@ -98,6 +119,7 @@ const ProductListing = ({ params }: { params: Params }) => {
       return;
     }
     setCount((prevCount) => prevCount - 1);
+    clicksSound()
     setPrice(
       (prevPrice) =>
         prevPrice - Math.round(SingleProduct.originalPrice * (1 - SingleProduct.discount / 100))
@@ -106,6 +128,7 @@ const ProductListing = ({ params }: { params: Params }) => {
 
   const handleAddToCart = () => {
     if (addCart.some((product) => product.id === SingleProduct.id)) {
+      AlreadySound()
       toast.warn("This item is already in your cart!", {
         position: "top-right",
         autoClose: 5000,
@@ -117,6 +140,7 @@ const ProductListing = ({ params }: { params: Params }) => {
       });
     } else {
       setAddToCart([...addCart, updatedObject]);
+      SuccessSound()
       toast.success("Item added to cart successfully!", {
         position: "top-right",
         autoClose: 3000,
