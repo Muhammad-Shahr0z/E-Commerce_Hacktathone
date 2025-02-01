@@ -18,7 +18,7 @@ export default function CancelPage() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-800 to-indigo-600">
+    <div className="flex items-center justify-center min-h-screen">
       <motion.div
         className="w-full max-w-lg p-8 bg-white rounded-3xl shadow-xl flex flex-col items-center border border-gray-200"
         initial={{ opacity: 0, y: 100 }}
@@ -93,7 +93,7 @@ export default function CancelPage() {
             >
               <motion.a
                 href="/"
-                className="bg-white text-gray-700 px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transform transition-all duration-300"
+                className="bg-blue-500 text-gray-700 px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transform transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -101,7 +101,7 @@ export default function CancelPage() {
               </motion.a>
               <motion.a
                 href="/carts"
-                className="bg-white text-gray-700 px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transform transition-all duration-300"
+                className="bg-blue-500 text-gray-700 px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transform transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
