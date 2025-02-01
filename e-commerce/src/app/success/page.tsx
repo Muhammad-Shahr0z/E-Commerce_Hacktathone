@@ -1,105 +1,122 @@
 "use client";
 
-import { useAtom } from "jotai";
-import { customerFormDetails } from "../store";
-import { motion } from "framer-motion";
-import { BsCheckCircle } from "react-icons/bs";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { saveOrderToSanity } from "@/utils/page";
+import { PuffLoader } from "react-spinners";
 import { addToCart } from "../addToCart";
-import { BillingDetails, Product } from "../../../interface";
-import { useEffect, useState } from "react";
+import { useAtom } from "jotai";
 
 const OrderSuccessPage = () => {
-  const [addCart] = useAtom(addToCart);
-  const [billingDetails] = useAtom<BillingDetails>(customerFormDetails);
-  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [isLoading, setIsLoading] = useState(true);
+    const [, setAddToCart] = useAtom(addToCart);
+  const [isExiting, setIsExiting] = useState(false); // Tracks exit animation
   const router = useRouter();
 
+
+
+
+
+
   useEffect(() => {
-    const SanatyUpload = async () => {
-      try {
-        const totalPriceCalc = addCart.reduce((total: number, product: Product) => {
-          return total + product.Finalprice * product.Quantity;
-        }, 0);
+    // Simulate a fake loading for 2 seconds
+    const timer = setTimeout(() => {
+      setAddToCart([]);
+      setIsLoading(false);
+    }, 3000);
 
-        console.log("Before calling saveOrderToSanity");
-        await saveOrderToSanity(billingDetails, addCart, totalPriceCalc);
-        console.log("After calling saveOrderToSanity");
-      } catch (error) {
-        console.error("Error uploading to Sanity:", error);
-      } finally {
-        setIsLoading(false); // End loading regardless of success or failure
-      }
-    };
-
-    // Call only if data exists
-    if (billingDetails && addCart.length > 0) {
-      SanatyUpload();
-    } else {
-      setIsLoading(false); // No data to upload
-    }
-  }, [addCart, billingDetails]);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleContinueShopping = () => {
-    router.push("/"); // Redirect to homepage
+    setIsExiting(true); // Trigger exit animation
+    setTimeout(() => {
+      router.push("/products"); // Navigate to products after animation
+    }, 500); // Match exit animation duration
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-lg font-medium text-gray-600">Processing your order...</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex items-center justify-center bg-gray-50 p-4">
-      <motion.div
-        className="bg-white shadow-lg rounded-2xl p-6 max-w-lg text-center"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+    <AnimatePresence>
+      {!isExiting && (
         <motion.div
-          className="text-green-500 text-6xl mb-4"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 200, damping: 10 }}
+          className="flex items-center justify-center min-h-screen bg-white"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
-          <BsCheckCircle />
+          {isLoading ? (
+            <div className="flex flex-col items-center">
+              {/* Loader with animation */}
+              <PuffLoader color="#000000" size={80} />
+              <motion.p
+                className="mt-4 text-lg font-medium text-gray-600"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+              >
+                Processing your order...
+              </motion.p>
+            </div>
+          ) : (
+            <motion.div
+              className="w-full max-w-md p-8 bg-white rounded-3xl shadow-xl flex flex-col items-center border border-gray-200"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Success Icon */}
+              <motion.div
+                className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-full shadow-xl"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.4 }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-8 h-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </motion.div>
+
+              {/* Success Message */}
+              <motion.h1
+                className="mt-6 text-3xl text-center font-semibold text-gray-800"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+              >
+                Order Placed Successfully!
+              </motion.h1>
+
+              <motion.p
+                className="mt-4 text-center text-gray-700 text-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+              >
+                Thank you for shopping with us. Your order will be processed shortly.
+              </motion.p>
+
+              {/* Continue Shopping Button */}
+              <motion.button
+                className="mt-6 px-6 py-3 text-white bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-xl transition-all duration-300 transform hover:scale-105"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleContinueShopping}
+              >
+                Continue Shopping
+              </motion.button>
+            </motion.div>
+          )}
         </motion.div>
-        <h1 className="text-2xl font-bold text-gray-800">Order Placed Successfully!</h1>
-        <p className="text-gray-600 mt-2">
-          Thank you for shopping with us. Here are your billing details:
-        </p>
-
-        {billingDetails ? (
-          <motion.div
-            className="mt-6 text-left"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <h2 className="text-lg font-medium text-gray-800">Billing Details:</h2>
-            <p className="text-gray-700">Name: {billingDetails.fullName}</p>
-            <p className="text-gray-700">Email: {billingDetails.email}</p>
-            <p className="text-gray-700">Address: {billingDetails.addressLine1}</p>
-          </motion.div>
-        ) : (
-          <p className="text-gray-500 mt-4">Loading billing details...</p>
-        )}
-
-        <motion.button
-          className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
-          onClick={handleContinueShopping}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          Continue Shopping
-        </motion.button>
-      </motion.div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 };
 

@@ -6,6 +6,8 @@ import { addToCart } from '../addToCart';
 import { useAtom } from 'jotai';
 import { customerFormDetails, isStripeLoading } from '../store';
 import { BillingDetails } from '../../../interface';
+import { motion } from "framer-motion";
+import { ClipLoader } from "react-spinners"; // Import the loader from React Spinners
 
 
 const CheckoutButton = ({disabled}:any) => {
@@ -66,14 +68,31 @@ const CheckoutButton = ({disabled}:any) => {
   };
 
   return (
-    <button
-      className={`${!disabled?"bg-blue-500 hover:bg-blue-600":"bg-gray-500 cursor-not-allowed"} w-full text-white p-2 rounded mt-4`}
+
+
+    
+    
+
+    
+    <motion.button
+      className={`${!disabled ? "bg-blue-500 hover:bg-green-700" : "bg-gray-500 cursor-not-allowed"} w-full text-white p-3 rounded-md mt-4 flex justify-center items-center`}
       onClick={handleCheckout}
       disabled={!stripe || isLoading || addCart.length === 0 || disabled}
-
+      initial={{ scale: 1 }} // Initial state (default size)
+      whileHover={{ scale: 1.03 }} // Slightly enlarged on hover
+      whileTap={{ scale: 0.98 }} // Slightly shrink on tap
+      transition={{ type: "spring", stiffness: 300, damping: 25 }} // Smooth transition with slight damping
     >
-      {isLoading ? 'Loading...' : 'Checkout'}
-    </button>
+      {isLoading ? (
+        <ClipLoader size={30} color="#fff" loading={isLoading} /> // Stylish loader in white color
+      ) : (
+        'Checkout'
+      )}
+    </motion.button>
+    
+    
+    
+    
   );
 };
 

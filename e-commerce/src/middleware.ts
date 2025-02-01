@@ -46,7 +46,7 @@ export default clerkMiddleware(async (auth, request) => {
     const referrer = request.headers.get('referer');
     if (!referrer || !referrer.includes('stripe.com')) {
       // Redirect to billing-summary  page if not coming from there
-      return Response.redirect(new URL('/carts', request.url));
+      return Response.redirect(new URL('/', request.url));
     }
   }
 
