@@ -20,7 +20,7 @@ import { atomWithStorage } from "jotai/utils";
 export const productsData = atom<Product[]|null>(null);
 export const filterCatogory = atom<string>("allProducts");
 export const inputValueAtom = atom<string>("");
-export const customerFormDetails = atomWithStorage<BillingDetails>('customerFormDetails', initialBillingDetails);
+export const customerFormDetails = atom<BillingDetails>(initialBillingDetails);
 
 
 // Manage Loading State in Jotai for stripe payment
