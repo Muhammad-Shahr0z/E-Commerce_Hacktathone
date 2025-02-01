@@ -147,7 +147,7 @@ const Header = () => {
                           About Us
                         </Link>
                         <Link
-                          href="/ceramic"
+                          href="/category/ceramic"
                           className="hover:text-[#5a526c] border-b-2 border-transparent hover:border-[#5a526c] pb-1"
                         >
                           Ceramics
