@@ -18,7 +18,7 @@ export default function CancelPage() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-800 to-indigo-600">
+    <div className="flex items-center justify-center min-h-screen">
       <motion.div
         className="w-full max-w-lg p-8 bg-white rounded-3xl shadow-xl flex flex-col items-center border border-gray-200"
         initial={{ opacity: 0, y: 100 }}
