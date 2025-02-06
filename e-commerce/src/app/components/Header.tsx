@@ -114,8 +114,7 @@ const Header = () => {
                   <span className="text-sm hidden">{user?.fullName}</span>
                 </div>
               )}
-            </div>
-            {/* Shadcn SHeet DIv */}
+            </div>          
             <div className="md:hidden z-10 h-6 w-6">
               <Sheet>
                 <SheetTrigger>
