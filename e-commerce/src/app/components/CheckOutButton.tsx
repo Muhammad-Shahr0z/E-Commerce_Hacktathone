@@ -68,12 +68,6 @@ const CheckoutButton = ({disabled}:any) => {
   };
 
   return (
-
-
-    
-    
-
-    
     <motion.button
       className={`${!disabled ? "bg-blue-500 hover:bg-green-700" : "bg-gray-500 cursor-not-allowed"} w-full text-white p-3 rounded-md mt-4 flex justify-center items-center`}
       onClick={handleCheckout}
