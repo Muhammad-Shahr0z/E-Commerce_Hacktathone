@@ -5,12 +5,15 @@ import { useAtom } from "jotai";
 import CartComponent from "../components/CartComponent";
 import { addToCart } from "../addToCart";
 import { MdLocalGroceryStore } from "react-icons/md";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 
 
 
 const CartPage = () => {
   const [addCart] = useAtom(addToCart);
+  const router = useRouter();
 
   const updatedCart = addCart.map((item) => ({
     ...item,
@@ -89,21 +92,24 @@ const CartPage = () => {
             </div>
           </div>
 
-          <button
-  disabled={addCart.length === 0}
-  onClick={(e) => {
-    if (addCart.length === 0) {
-      e.preventDefault(); // Prevent link action if cart is empty
-    }
-  }}
-  className={`text-md w-full rounded-sm mt-4 px-4 py-2 font-bold ${
-    addCart.length === 0
-      ? "bg-gray-400 text-gray-700"
-      : "bg-blue-500 text-white hover:bg-blue-900"
-  }`}
->
-  <Link href={addCart.length > 0 ? "/billing-summary" : "#"}>Place Order</Link>
-</button>
+          <motion.button
+      disabled={addCart.length === 0}
+      onClick={() => {
+        if (addCart.length > 0) {
+          router.push("/billing-summary");
+        }
+      }}
+      whileHover={{ scale: addCart.length > 0 ? 1.05 : 1 }}
+      whileTap={{ scale: 0.95 }}
+      className={`text-md w-full rounded-sm mt-4 px-4 py-2 font-bold transition-all ${
+        addCart.length === 0
+          ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+          : "bg-blue-500 text-white hover:bg-blue-900"
+      }`}
+    >
+      Place Order
+    </motion.button>
+
 
         </div>
       </div>
