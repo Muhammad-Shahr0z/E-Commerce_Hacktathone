@@ -76,14 +76,8 @@ const ProductListing = ({ params }: { params: Params }) => {
     Finalprice: price,
   };
 
-  const SuccessSound = () => {
-    const audio = new Audio("/studio/aivoice.mp3");
-    audio.play();
-  };
-  const AlreadySound = () => {
-    const audio = new Audio("/studio/cartalready.mp3");
-    audio.play();
-  };
+
+ 
 
   const clicksSound = ()=>{
     const audio = new Audio('/studio/clicks.wav');
@@ -128,7 +122,7 @@ const ProductListing = ({ params }: { params: Params }) => {
 
   const handleAddToCart = () => {
     if (addCart.some((product) => product.id === SingleProduct.id)) {
-      AlreadySound()
+  
       toast.warn("This item is already in your cart!", {
         position: "top-right",
         autoClose: 5000,
@@ -140,7 +134,7 @@ const ProductListing = ({ params }: { params: Params }) => {
       });
     } else {
       setAddToCart([...addCart, updatedObject]);
-      SuccessSound()
+  
       toast.success("Item added to cart successfully!", {
         position: "top-right",
         autoClose: 3000,
