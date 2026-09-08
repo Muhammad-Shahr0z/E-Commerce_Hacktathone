@@ -4,6 +4,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import {ConditionalHeader , ConditionalFooter} from "./components/conditionalLayout";
 
+// Mark layout as dynamic to prevent static generation issues
+export const dynamic = "force-dynamic";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
