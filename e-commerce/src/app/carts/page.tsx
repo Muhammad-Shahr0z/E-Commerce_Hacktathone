@@ -8,8 +8,8 @@ import { MdLocalGroceryStore } from "react-icons/md";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
-
-
+// Prevent static generation - this is a dynamic client component
+export const dynamic = "force-dynamic";
 
 const CartPage = () => {
   const [addCart] = useAtom(addToCart);
@@ -26,7 +26,7 @@ const CartPage = () => {
     0
   );
   
-  
+
 
   const EmptyCart = "Your Cart Is Empty";
 
