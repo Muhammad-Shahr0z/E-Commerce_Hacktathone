@@ -10,6 +10,9 @@ import { Product } from "../../../interface";
 import ProductCart from "@/app/components/ProductCart";
 import WidthWrapper from "../components/WidthWrapper";
 
+// Prevent static generation - this is a dynamic client component
+export const dynamic = "force-dynamic";
+
 export default function AllProducts() {
   const [inputValue] = useAtom(inputValueAtom);
   const [products, setProducts] = useAtom<Product[] | null>(productsData);
